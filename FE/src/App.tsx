@@ -7,6 +7,8 @@ import MainLayout from './components/shared/MainLayout';
 import ErrorPage from './components/shared/ErrorPage';
 import Home from './components/home/Home';
 import Recipes from './components/recipes/Recipes';
+import Login from './components/auth/Login';
+import Register from './components/auth/Register';
 
 
 const router = createBrowserRouter([
@@ -24,14 +26,22 @@ const router = createBrowserRouter([
         element: <Recipes />,
       }
     ]
+  },
+  {
+    path: "/login",
+    element: <Login />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+    errorElement: <ErrorPage />,
   }
 ]);
 
 
 
 export default function App() {
-  {/* <HeaderMegaMenu />
-        <ToggleThemeComp /> */}
   return (
     <MantineProvider defaultColorScheme="dark">
       <RouterProvider router={router} />
