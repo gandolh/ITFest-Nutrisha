@@ -1,18 +1,13 @@
 import {
-    HoverCard,
     Group,
     Button,
     UnstyledButton,
     Text,
-    SimpleGrid,
     ThemeIcon,
-    Anchor,
     Divider,
-    Center,
     Box,
     Burger,
     Drawer,
-    Collapse,
     ScrollArea,
     rem,
     useMantineTheme,
@@ -26,9 +21,12 @@ import {
     IconChartPie3,
     IconFingerprint,
     IconCoin,
-    IconChevronDown,
   } from '@tabler/icons-react';
+  
+
+  import { Link } from "react-router-dom";
   import classes from './HeaderMegaMenu.module.css';
+  // import classes from '../css/HeaderMegaMenu.module.css';
   
   const mockdata = [
     {
@@ -63,7 +61,12 @@ import {
     },
   ];
   
-  export function HeaderMegaMenu() {
+  type HeaderMegaMenuProps = {
+    NavLinks : Array<NavLink>;
+    handleChangeActive: (id: number) => void;
+  }
+
+  export function HeaderMegaMenu({NavLinks, handleChangeActive} : HeaderMegaMenuProps) {
     const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
     const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
     const theme = useMantineTheme();
@@ -93,12 +96,14 @@ import {
             <MantineLogo size={30} />
   
             <Group h="100%" gap={0} visibleFrom="sm">
-              <a href="#" className={classes.link}>
-                Home
-              </a>
-              <a href="#" className={classes.link}>
-                MyPage
-              </a>
+            {NavLinks.map((link) => (
+              <Link to={link.anchor} className={classes.link} key={link.id} 
+              onClick={() => handleChangeActive(link.id)}
+              data-active={link.active ? link.active : undefined}
+              >
+                {link.name}
+              </Link>
+            ))}
             </Group>
             <Group visibleFrom="sm">
               <Button variant="default">Log in</Button>
@@ -120,16 +125,13 @@ import {
         >
           <ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md">
             <Divider my="sm" />
-  
-            <a href="#" className={classes.link}>
-              Home
-            </a>
-            <Collapse in={linksOpened}>{links}</Collapse>
-            <a href="#" className={classes.link}>
-              My Page
-            </a>
-         
-  
+            {NavLinks.map((link) => (
+              <Link to={link.anchor} className={classes.link} key={link.id}
+               onClick={() => handleChangeActive(link.id)}
+               data-active={link.active}>
+                {link.name}
+              </Link>
+            ))}
             <Divider my="sm" />
   
             <Group justify="center" grow pb="xl" px="md">

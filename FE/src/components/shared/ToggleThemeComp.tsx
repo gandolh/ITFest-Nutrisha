@@ -1,7 +1,7 @@
 import { ActionIcon, useMantineColorScheme, useComputedColorScheme } from '@mantine/core';
 import { IconSun, IconMoon } from '@tabler/icons-react';
 import cx from 'clsx';
-import classes from './ToggleThemeComp.module.css';
+import classes from './css/ToggleThemeComp.module.css';
 
 export function ToggleThemeComp() {
   const { setColorScheme } = useMantineColorScheme();
