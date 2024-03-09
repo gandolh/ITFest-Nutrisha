@@ -67,7 +67,7 @@ export default function Login() {
 				)
 				.then((res) => {
 					console.log(res.data);
-					GoogleLoginCall({email : res.data.email, firstName : res.data.given_name, lastName : res.data.family_name} as User);
+					GoogleLoginCall(res.data.email, res.data.given_name, res.data.family_name);
 				})
 				.catch((err) => console.log(err));
 		}
