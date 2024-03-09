@@ -12,7 +12,7 @@ const LoginCall = async  (email : string, password : string) => {
         .catch(error => {
             //TODO: toast error
             // treat bad request and not found some time
-            console.log(error);
+            console.log(error.code);
         });
 }
 
@@ -25,7 +25,7 @@ const RegisterCall = async  (user : User) => {
             return response;
         })
         .catch(error => {
-            console.log(error);
+            console.log(error.code);
         });
 
 }
