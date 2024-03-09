@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
+// const { setCurentUser } = useAuthContext();
+
 const getLocalStorageUser = () : User | null => {
     const user = window.localStorage.getItem("authenticatedUser");
     if (user) {
@@ -9,12 +11,14 @@ const getLocalStorageUser = () : User | null => {
     return null;
 }
 
-const LoginCall = async  (email : string, password : string) : Promise<Number>  => { 
+const LoginCall = async  (email : string, password : string, handleUserLoggedIn : (user : User)=> void) : Promise<Number>  => { 
     // do post call with axios. in body send email and password. The url is http://localhost:8080/auth/login
     try {
         const resp = await axios.post('http://localhost:8080/auth/login', { email, password });
-        
+        // setCurentUser(resp.data);
+        handleUserLoggedIn(resp.data as User);
         window.localStorage.setItem("authenticatedUser", JSON.stringify(resp.data));
+        
         return 0;
     } catch (err : any) {
         if ( err.response.status === 400) {

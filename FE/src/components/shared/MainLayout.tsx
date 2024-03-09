@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { HeaderMegaMenu } from "./HeaderMegaMenu";
-import { AppShell} from '@mantine/core';
+import { AppShell, useMantineColorScheme} from '@mantine/core';
 
 export default function MainLayout() {
   const [NavLinks, setNavLinks] = React.useState<Array<NavLink>>([
@@ -16,10 +16,15 @@ export default function MainLayout() {
     setNavLinks(navLinksCopy);
   };
 
+  const lightShell = "bg-[#fee]";
+  const darkShell = "bg-[#333]";
+  const { colorScheme } = useMantineColorScheme();
+
   return (
     <>
 
       <AppShell
+        className={colorScheme === 'light' ? lightShell : darkShell}
         header={{ height: 60 }}
         padding="md"
       >
@@ -27,7 +32,8 @@ export default function MainLayout() {
           <HeaderMegaMenu NavLinks={NavLinks} handleChangeActive={changeActive} />
         </AppShell.Header>
 
-        <AppShell.Main pt={60}> <Outlet />
+        <AppShell.Main pt={60}>
+          <Outlet />
         </AppShell.Main>
       </AppShell>
     </>

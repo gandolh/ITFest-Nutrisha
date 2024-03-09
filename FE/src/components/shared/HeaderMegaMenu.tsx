@@ -16,6 +16,8 @@ import classes from './HeaderMegaMenu.module.css';
 import AuthGroup from './AuthGroupLarge';
 import AuthGroupMobile from './AuthGroupMobile';
 import { getLocalStorageUser } from '../../apiCallers/AuthApiCaller';
+import { useAuthContext } from '../auth/AuthContext';
+import { useEffect } from 'react';
 // import classes from '../css/HeaderMegaMenu.module.css';
 
 type HeaderMegaMenuProps = {
@@ -25,12 +27,22 @@ type HeaderMegaMenuProps = {
 
 export function HeaderMegaMenu({ NavLinks, handleChangeActive }: HeaderMegaMenuProps) {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
-  const authenticatedUser = getLocalStorageUser();
+	const {setCurentUser} = useAuthContext();
+
+  useEffect(() => {
+    const curentUser = getLocalStorageUser();
+    if (curentUser) {
+      setCurentUser(curentUser);
+    }
+    
+  }, []);
+
+  const { curentUser } = useAuthContext();
   const { colorScheme } = useMantineColorScheme();
 
 
   return (
-    <Box>
+    <Box >
       <header className={classes.header}>
         <Group justify="space-between" h="100%">
           {colorScheme === 'light' ? 
@@ -47,7 +59,7 @@ export function HeaderMegaMenu({ NavLinks, handleChangeActive }: HeaderMegaMenuP
               </Link>
             ))}
           </Group>
-          <AuthGroup authenticatedUser={authenticatedUser}/>
+          <AuthGroup authenticatedUser={curentUser}/>
 
           <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />
         </Group>
@@ -74,7 +86,7 @@ export function HeaderMegaMenu({ NavLinks, handleChangeActive }: HeaderMegaMenuP
           ))}
           </Stack>
           <Divider my="sm" />
-            <AuthGroupMobile authenticatedUser={authenticatedUser}/>
+            <AuthGroupMobile authenticatedUser={curentUser}/>
         </ScrollArea>
       </Drawer>
     </Box>
