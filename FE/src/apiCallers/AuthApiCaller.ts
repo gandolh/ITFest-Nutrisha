@@ -6,7 +6,9 @@ import { redirect } from "react-router-dom";
 const LoginCall = async  (email : string, password : string) => { 
     // do post call with axios. in body send email and password. The url is http://localhost:8080/auth/login
      await axios.post('http://localhost:8080/auth/login', { email, password })
-        .then(_ => {
+        .then(resp => {
+            console.log(resp.data);
+            // window.localStorage.setItem("token", resp.data);
             redirect("/");
         })
         .catch(error => {
@@ -21,14 +23,15 @@ const LoginCall = async  (email : string, password : string) => {
 const RegisterCall = async  (user : User) => {
     // do post call with axios. in body send user. The url is http://localhost:8080/auth/register
     await axios.post('http://localhost:8080/auth/register', user)
-        .then(_ => {
+        .then(resp => {
+            console.log(resp);
             redirect("/login");
 
         })
-        .catch(_ => {
+        .catch(err => {
+            console.log(err);
             toast("You really f up something.")
         });
-        redirect("/login");
 }
 
 const GoogleLoginCall = async  (email : string , firstName : string, lastName: string) => {
