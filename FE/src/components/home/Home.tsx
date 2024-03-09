@@ -7,13 +7,15 @@ import TodayPlan from "./TodayPlan";
 const Home = () => {
   return (
 
-     <Container size='xl' pt={30}>
-      <SimpleGrid cols={3}>
+    <div>
+     <Container fluid pt={30} className="flex flex-col items-center justify-center"  style={{height: 'calc(100dvh - 60px - var(--app-shell-padding))'}} >
+      <SimpleGrid cols={3} className="w-full mx-auto">
         <WelcomeCard/>
         <TodayPlan/>
         <HomeStats/>
       </SimpleGrid>
     </Container>
+    </div>
   );
 }
 

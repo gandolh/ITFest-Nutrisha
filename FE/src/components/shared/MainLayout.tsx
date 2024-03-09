@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { HeaderMegaMenu } from "./HeaderMegaMenu";
-
+import { AppShell} from '@mantine/core';
 
 export default function MainLayout() {
   const [NavLinks, setNavLinks] = React.useState<Array<NavLink>>([
@@ -18,8 +18,18 @@ export default function MainLayout() {
 
   return (
     <>
-      <HeaderMegaMenu NavLinks={NavLinks} handleChangeActive={changeActive} />
-      <Outlet />
-        </>
-    );
+
+      <AppShell
+        header={{ height: 60 }}
+        padding="md"
+      >
+        <AppShell.Header>
+          <HeaderMegaMenu NavLinks={NavLinks} handleChangeActive={changeActive} />
+        </AppShell.Header>
+
+        <AppShell.Main pt={60}> <Outlet />
+        </AppShell.Main>
+      </AppShell>
+    </>
+  );
 }
