@@ -31,9 +31,11 @@ const RegisterCall = async  (user : User) => {
         redirect("/login");
 }
 
-const GoogleLoginCall = async  (user : User) => {
+const GoogleLoginCall = async  (email : string , firstName : string, lastName: string) => {
     // do post call with axios. in body send user. The url is http://localhost:8080/auth/google
-    await axios.post('http://localhost:8080/auth/google', user)
+    await axios.post('http://localhost:8080/auth/google', {
+        email, firstName, lastName
+    })
         .then(response => {
             console.log(response);
             return response;
