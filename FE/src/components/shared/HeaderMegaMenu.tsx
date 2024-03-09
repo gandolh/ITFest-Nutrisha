@@ -7,8 +7,9 @@ import {
   ScrollArea,
   rem,
   Stack,
+  useMantineColorScheme,
+  Image
 } from '@mantine/core';
-import { MantineLogo } from '@mantinex/mantine-logo';
 import { useDisclosure } from '@mantine/hooks';
 import { Link } from "react-router-dom";
 import classes from './HeaderMegaMenu.module.css';
@@ -25,12 +26,16 @@ type HeaderMegaMenuProps = {
 export function HeaderMegaMenu({ NavLinks, handleChangeActive }: HeaderMegaMenuProps) {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
   const authenticatedUser = getLocalStorageUser();
+  const { colorScheme } = useMantineColorScheme();
+
 
   return (
     <Box>
       <header className={classes.header}>
         <Group justify="space-between" h="100%">
-          <MantineLogo size={30} />
+          {colorScheme === 'light' ? 
+          (<Image w={30} h={30} src="NutrishaLogoDark.webp" alt="Mantine logo" />)
+          : (<Image w={30} h={30} src="NutrishaLogoLight.webp" alt="Mantine logo" />) }
 
           <Group h="100%" gap={0} visibleFrom="sm">
             {NavLinks.map((link) => (
