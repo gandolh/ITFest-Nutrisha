@@ -1,6 +1,7 @@
 import { Container, SimpleGrid } from "@mantine/core";
 import IngredientListCard from "./IngredientListCard";
 import RecipesCard from "./RecipesCard";
+import ChatAssistant from "./ChatAssistant";
 
 const Recipes = () => {
     return (<h1>
@@ -9,6 +10,7 @@ const Recipes = () => {
                 <IngredientListCard />
                 <RecipesCard />
             </SimpleGrid>
+            <ChatAssistant/>
         </Container>
     </h1>);
 }

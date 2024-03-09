@@ -4,7 +4,7 @@ const WelcomeCard = () => {
   const currentTime = new Date().getHours();
   let greeting;
   
-  if (currentTime < 12) {
+  if (currentTime < 13) {
     greeting = "Good morning";
   } else if (currentTime < 18) {
     greeting = "Good afternoon";
