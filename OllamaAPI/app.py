@@ -72,7 +72,6 @@ def call_ollama():
             ingredients_json = []
             for ingredient in ingredients:
                 ingredients_temp = ingredient.split(' ')
-                print("Ingredients: " + str(ingredients_temp))
                 if len(ingredients_temp) == 1:
                     ingredients_json.append({"amount": "", "name": ingredients_temp[0]})
                 elif ingredients_temp[1].find('cup') != -1 or ingredients_temp[1].find('tsp') != -1 or ingredients_temp[1].find('tbsp') != -1 or ingredients_temp[1].find('oz') != -1 or ingredients_temp[1].find('lb') != -1 or ingredients_temp[1].find('pound') != -1 or ingredients_temp[1].find('teaspoon') != -1 or ingredients_temp[1].find('tablespoon') != -1:
@@ -118,8 +117,6 @@ def add_recipe(title):
         return 0
 
     generated_object = ollama.generate(model=ollama_model, prompt="Give me details about the " + title + " recipe using the following template:\nDescription:\n<long description>\nIngredients:\n- <number> <unit of measure>\n- <number> <just the ingredient>\nPreparing steps:\n1. <step description>\n2. <step description>\nNutritional values:\n- <number> calorie\n- <number> protein\n- <number> fat\n- <number> carbohydrate")
-
-    print("Response: " + str(generated_object))
 
     response = generated_object.get('response')
 
@@ -180,12 +177,6 @@ def add_recipe(title):
         desc = step[i + 2 : ]
         steps_json.append({"order": number, "description": desc})
 
-    print("Title: " + title)
-    print("Description: " + description)
-    print("Ingredients: " + str(ingredients_json))
-    print("Steps: " + str(steps_json))
-    print("Nutritional Values: " + str(nutritional_numbers))
-
     recipe = {
         "title": title,
         "description": description,
@@ -221,7 +212,6 @@ def add_recipes_by_ingredients():
     for title in titles:
         added_recipes.append(recipes.find_one({"title": title}))
 
-    print("End of add_recipes_by_ingredients")
     return added_recipes
 
 
