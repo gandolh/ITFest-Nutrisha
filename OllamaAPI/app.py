@@ -31,7 +31,7 @@ def call_ollama():
             count += 1
             title = recipe.get('title')
         
-            generated_object = ollama.generate(model='gemma', prompt="Give me details about the " + title + " recipe using the following template:\nDescription:\n<long description>\nIngredients:\n- <number> <unit of measure>\n- <number> <just the ingredient>\nPreparing steps:\n1. <step description>\n2. <step description>\nNutritional values:\n- <number> calorie\n- <number> protein\n- <number> fat\n- <number> carbohydrate")
+            generated_object = ollama.generate(model=ollama_model, prompt="Give me details about the " + title + " recipe using the following template:\nDescription:\n<long description>\nIngredients:\n- <number> <unit of measure>\n- <number> <just the ingredient>\nPreparing steps:\n1. <step description>\n2. <step description>\nNutritional values:\n- <number> calorie\n- <number> protein\n- <number> fat\n- <number> carbohydrate")
         
             response = generated_object.get('response')
         
@@ -109,7 +109,6 @@ def call_ollama():
             print(str(count) + " / " + str(total))
     
     return "Updated " + str(count) + " out of " + str(total) + " recipes!"
-
 
 
 def add_recipe(title):
@@ -225,6 +224,17 @@ def add_recipes_by_ingredients():
     added_recipes = [x for x in added_recipes if x != 0]
 
     return added_recipes
+
+
+@app.route('/chat', methods=['POST'])
+def chat():
+    prompt = request.json['prompt']
+
+    ollama_response = ollama.generate(model=ollama_model, prompt=prompt)
+
+    response = ollama_response.get('response')
+
+    return response
 
 
 if __name__ == '__main__':
