@@ -24,6 +24,13 @@ public class AuthController {
         private String password;
     }
 
+    @Getter
+    public static class GoogleLoginRequest {
+        private String email;
+        private String firstName;
+        private String lastName;
+    }
+
     @PostMapping("/login")
     public ResponseEntity<UserDto> login(@RequestBody LoginRequest loginRequest) {
         UserDto userDto = userService.getUserByEmail(loginRequest.getEmail());
@@ -51,7 +58,19 @@ public class AuthController {
     }
 
     @PostMapping("/google")
-    public ResponseEntity<UserDto> google(@RequestBody UserDto userDto) {
+    public ResponseEntity<UserDto> google(@RequestBody GoogleLoginRequest googleLoginRequest) {
+        UserDto existingUserDto = userService.getUserByEmail(googleLoginRequest.getEmail());
+
+        if (existingUserDto != null) {
+            return ResponseEntity.ok(existingUserDto);
+        }
+
+        UserDto userDto = new UserDto();
+
+        userDto.setEmail(googleLoginRequest.getEmail());
+        userDto.setFirstName(googleLoginRequest.getFirstName());
+        userDto.setLastName(googleLoginRequest.getLastName());
+
         return ResponseEntity.ok(userService.saveUser(userDto));
     }
 }
