@@ -33,4 +33,4 @@ build/
 .vscode/
 
 ### Other ###
-/src/main/java/bmg/nutrition_assistant/utils/Database.java
+/src/main/resources/application.properties
