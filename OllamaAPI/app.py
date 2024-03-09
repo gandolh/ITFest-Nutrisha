@@ -1,10 +1,15 @@
 from flask import Flask
 import ollama
 from pymongo import MongoClient
+from dotenv import dotenv_values
+
+config = dotenv_values(".env")
+PASSWORD = config['PASSWORD']
 
 app = Flask(__name__)
 
-connection_string = "mongodb+srv://Barnie:MEclkmRFnksLyba3@nutrition-assistant.hjtasbs.mongodb.net/?retryWrites=true&w=majority&appName=Nutrition-Assistant"
+connection_string = "mongodb+srv://Barnie:" + PASSWORD + "@nutrition-assistant.hjtasbs.mongodb.net/?retryWrites=true&w=majority&appName=Nutrition-Assistant"
+
 client = MongoClient(connection_string)
 db = client['nutrition-assistant']
 

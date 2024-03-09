@@ -31,6 +31,11 @@ public class RecipeController {
         return ResponseEntity.ok(recipeDto);
     }
 
+    @PostMapping("/byIngredients")
+    public ResponseEntity<List<RecipeDto>> getRecipesByIngredients(@RequestBody List<String> ingredients) {
+        return ResponseEntity.ok(recipeService.getRecipesByIngredients(ingredients));
+    }
+
     @PostMapping
     public ResponseEntity<RecipeDto> saveRecipe(@RequestBody RecipeDto recipeDto) {
         return ResponseEntity.ok(recipeService.saveRecipe(recipeDto));
