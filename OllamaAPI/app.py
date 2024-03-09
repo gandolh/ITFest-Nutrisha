@@ -177,8 +177,6 @@ def add_recipe(title):
         desc = step[i + 2 : ]
         steps_json.append({"order": number, "description": desc})
 
-    title = title[2: len(title)-2]
-
     recipe = {
         "title": title,
         "description": description,
