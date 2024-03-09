@@ -82,62 +82,62 @@ export default function Login() {
 
 	return (
 		<div className={classes.wrapper}>
-			<Paper className={classes.form} radius={0} p={30}>
-				<Title
-					order={2}
-					className={classes.title}
-					ta="center"
-					mt="md"
-					mb={50}
-				>
-					Welcome back to Nutrition-Assistant!
-				</Title>
+				<Paper className={classes.form} radius={0} p={30}>
+					<Title
+						order={2}
+						className={classes.title}
+						ta="center"
+						mt="md"
+						mb={50}
+					>
+						Welcome back to Nutrition-Assistant!
+					</Title>
 
-				<TextInput
-					label="Email address"
-					placeholder="hello@gmail.com"
-					size="md"
-					{...form.getInputProps("email")}
-				/>
-				<PasswordInput
-					label="Password"
-					placeholder="Your password"
-					mt="md"
-					size="md"
-					{...form.getInputProps("password")}
-				/>
-				<Checkbox
-					label="Keep me logged in"
-					mt="xl"
-					size="md"
-					{...form.getInputProps("loggedIn")}
-				/>
-				<Button
-					fullWidth
-					mt="xl"
-					size="md"
-					onClick={HandleLogin}
-					type="button"
-				>
-					Login
-				</Button>
-				<Button
-					fullWidth
-					mt="xl"
-					size="md"
-					onClick={HandleGoogleLogin}
-					type="button"
-				>
-					Sign in with Google
-				</Button>
+					<TextInput
+						label="Email address"
+						placeholder="hello@gmail.com"
+						size="md"
+						{...form.getInputProps("email")}
+					/>
+					<PasswordInput
+						label="Password"
+						placeholder="Your password"
+						mt="md"
+						size="md"
+						{...form.getInputProps("password")}
+					/>
+					<Checkbox
+						label="Keep me logged in"
+						mt="xl"
+						size="md"
+						{...form.getInputProps("loggedIn")}
+					/>
+					<Button
+						fullWidth
+						mt="xl"
+						size="md"
+						onClick={HandleLogin}
+						type="button"
+					>
+						Login
+					</Button>
+					<Button
+						fullWidth
+						mt="xl"
+						size="md"
+						onClick={HandleGoogleLogin}
+						type="button"
+					>
+						Sign in with Google
+					</Button>
 
-				<Text ta="center" mt="md">
-					Don&apos;t have an account?{" "}
-					<Link to="/register">
-						<Anchor<"a"> fw={700}>Register</Anchor>
-					</Link>
-				</Text>
-			</Paper>
+					<Text ta="center" mt="md">
+						Don&apos;t have an account?{" "}
+						<Link to="/register">
+							<Anchor<"a"> fw={700}>Register</Anchor>
+						</Link>
+					</Text>
+				</Paper>
 		</div>
 	);
 }
