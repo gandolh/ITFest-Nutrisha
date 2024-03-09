@@ -42,7 +42,7 @@ export function HeaderMegaMenu({ NavLinks, handleChangeActive }: HeaderMegaMenuP
 
 
   return (
-    <Box>
+    <Box >
       <header className={classes.header}>
         <Group justify="space-between" h="100%">
           {colorScheme === 'light' ? 
