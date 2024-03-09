@@ -6,7 +6,7 @@ const EmptyCard = () => {
             shadow="sm"
             padding="xl"
         >
-            <Title order={1} c='dimmed'> Unavailable</Title>
+            <Title order={1} c='dimmed'> Recipe</Title>
             <Divider my="md" />
         </Card>
 

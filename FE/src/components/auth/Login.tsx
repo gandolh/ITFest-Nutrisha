@@ -133,8 +133,8 @@ export default function Login() {
 
 					<Text ta="center" mt="md">
 						Don&apos;t have an account?{" "}
-						<Link to="/register">
-							<Anchor<"a"> fw={700}>Register</Anchor>
+						<Link to="/register" style={{fontWeight:'700',color: 'var(--mantine-color-anchor)'}}>
+							Register
 						</Link>
 					</Text>
 				</Paper>

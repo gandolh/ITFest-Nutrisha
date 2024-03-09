@@ -87,10 +87,8 @@ export default function Register() {
 
         <Text ta="center" mt="md">
           You already have an account?{' '}
-          <Link to='/login'>
-            <Anchor<'a'> fw={700}>
+          <Link to='/login' style={{fontWeight:'700',color: 'var(--mantine-color-anchor)'}}>
               Login
-            </Anchor>
           </Link>
         </Text>
       </Paper>
