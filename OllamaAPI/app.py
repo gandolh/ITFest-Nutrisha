@@ -12,7 +12,7 @@ db = client['nutrition-assistant']
 
 recipes = db['recipes']
 
-ollama_model = 'llama2'
+ollama_model = 'gemma'
 
 
 @app.route('/recipes/generate', methods=['GET'])
@@ -119,6 +119,8 @@ def add_recipe(title):
 
     generated_object = ollama.generate(model=ollama_model, prompt="Give me details about the " + title + " recipe using the following template:\nDescription:\n<long description>\nIngredients:\n- <number> <unit of measure>\n- <number> <just the ingredient>\nPreparing steps:\n1. <step description>\n2. <step description>\nNutritional values:\n- <number> calorie\n- <number> protein\n- <number> fat\n- <number> carbohydrate")
 
+    print("Response: " + str(generated_object))
+
     response = generated_object.get('response')
 
     response = response.replace('\n', '')
@@ -178,6 +180,12 @@ def add_recipe(title):
         desc = step[i + 2 : ]
         steps_json.append({"order": number, "description": desc})
 
+    print("Title: " + title)
+    print("Description: " + description)
+    print("Ingredients: " + str(ingredients_json))
+    print("Steps: " + str(steps_json))
+    print("Nutritional Values: " + str(nutritional_numbers))
+
     recipe = {
         "title": title,
         "description": description,
@@ -201,17 +209,20 @@ def add_recipes_by_ingredients():
     ollama_response = ollama.generate(model=ollama_model, prompt=prompt)
 
     response = ollama_response.get('response')
-
+    
     response = response.split('\n')
 
-    titles = response[len(response) - 1 : len(response) - 6 : -1]
-
-    titles = [x[3 : ] for x in titles]
+    titles = [x[3 : ] for x in response]
 
     for title in titles:
         add_recipe(title)
 
-    return "Added successfully!"
+    added_recipes = []
+    for title in titles:
+        added_recipes.append(recipes.find_one({"title": title}))
+
+    print("End of add_recipes_by_ingredients")
+    return added_recipes
 
 
 if __name__ == '__main__':
