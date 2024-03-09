@@ -1,4 +1,4 @@
-type User{
+type User {
     email: string;
     password: string;
     firstname: string;

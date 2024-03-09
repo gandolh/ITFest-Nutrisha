@@ -49,4 +49,9 @@ public class AuthController {
 
         return ResponseEntity.ok(userService.saveUser(userDto));
     }
+
+    @PostMapping("/google")
+    public ResponseEntity<UserDto> google(@RequestBody UserDto userDto) {
+        return ResponseEntity.ok(userService.saveUser(userDto));
+    }
 }

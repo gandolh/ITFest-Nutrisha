@@ -18,7 +18,6 @@ const LoginCall = async  (email : string, password : string) => {
         });
 }
 
-
 const RegisterCall = async  (user : User) => {
     // do post call with axios. in body send user. The url is http://localhost:8080/auth/register
     await axios.post('http://localhost:8080/auth/register', user)
@@ -32,8 +31,20 @@ const RegisterCall = async  (user : User) => {
         redirect("/login");
 }
 
+const GoogleLoginCall = async  (user : User) => {
+    // do post call with axios. in body send user. The url is http://localhost:8080/auth/google
+    await axios.post('http://localhost:8080/auth/google', user)
+        .then(response => {
+            console.log(response);
+            return response;
+        })
+        .catch(error => {
+            console.log(error.code);
+        });
+}
+
 export {
     LoginCall,
-    RegisterCall
-
+    RegisterCall,
+    GoogleLoginCall
 }

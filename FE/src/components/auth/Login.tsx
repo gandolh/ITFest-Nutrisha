@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import classes from "./Login.module.css";
 import { Link } from "react-router-dom";
 import { useForm } from "@mantine/form";
-import { LoginCall } from "../../apiCallers/AuthApiCaller";
+import { GoogleLoginCall, LoginCall } from "../../apiCallers/AuthApiCaller";
 
 import { useGoogleLogin } from "@react-oauth/google";
 
@@ -67,6 +67,7 @@ export default function Login() {
 				)
 				.then((res) => {
 					console.log(res.data);
+					GoogleLoginCall({email : res.data.email, firstname : res.data.given_name, lastname : res.data.family_name} as User);
 				})
 				.catch((err) => console.log(err));
 		}
