@@ -8,9 +8,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class DayPlan {
-    private String breakfast;
+    private Recipe breakfast;
     private String snack1;
-    private String lunch;
+    private Recipe lunch;
     private String snack2;
-    private String dinner;
+    private Recipe dinner;
 }
