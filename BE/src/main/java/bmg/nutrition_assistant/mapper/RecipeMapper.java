@@ -10,7 +10,7 @@ public class RecipeMapper {
         recipeDto.setId(recipe.getId());
         recipeDto.setTitle(recipe.getTitle());
         recipeDto.setDescription(recipe.getDescription());
-        recipeDto.setCalorie(recipe.getCalorie());
+        recipeDto.setCalories(recipe.getCalories());
         recipeDto.setProtein(recipe.getProtein());
         recipeDto.setFat(recipe.getFat());
         recipeDto.setCarbohydrate(recipe.getCarbohydrate());
@@ -27,7 +27,7 @@ public class RecipeMapper {
         recipe.setId(recipeDto.getId());
         recipe.setTitle(recipeDto.getTitle());
         recipe.setDescription(recipeDto.getDescription());
-        recipe.setCalorie(recipeDto.getCalorie());
+        recipe.setCalories(recipeDto.getCalories());
         recipe.setProtein(recipeDto.getProtein());
         recipe.setFat(recipeDto.getFat());
         recipe.setCarbohydrate(recipeDto.getCarbohydrate());
@@ -41,7 +41,7 @@ public class RecipeMapper {
     public static RecipeDto updateDto(RecipeDto oldRecipeDto, RecipeDto newRecipeDto) {
         oldRecipeDto.setTitle(newRecipeDto.getTitle() != null ? newRecipeDto.getTitle() : oldRecipeDto.getTitle());
         oldRecipeDto.setDescription(newRecipeDto.getDescription() != null ? newRecipeDto.getDescription() : oldRecipeDto.getDescription());
-        oldRecipeDto.setCalorie(newRecipeDto.getCalorie() != null ? newRecipeDto.getCalorie() : oldRecipeDto.getCalorie());
+        oldRecipeDto.setCalories(newRecipeDto.getCalories() != null ? newRecipeDto.getCalories() : oldRecipeDto.getCalories());
         oldRecipeDto.setProtein(newRecipeDto.getProtein() != null ? newRecipeDto.getProtein() : oldRecipeDto.getProtein());
         oldRecipeDto.setFat(newRecipeDto.getFat() != null ? newRecipeDto.getFat() : oldRecipeDto.getFat());
         oldRecipeDto.setCarbohydrate(newRecipeDto.getCarbohydrate() != null ? newRecipeDto.getCarbohydrate() : oldRecipeDto.getCarbohydrate());

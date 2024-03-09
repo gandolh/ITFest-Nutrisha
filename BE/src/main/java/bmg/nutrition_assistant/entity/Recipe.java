@@ -24,7 +24,7 @@ public class Recipe {
     private String description;
 
     @Field
-    private Integer calorie;
+    private Integer calories;
 
     @Field
     private Integer protein;
