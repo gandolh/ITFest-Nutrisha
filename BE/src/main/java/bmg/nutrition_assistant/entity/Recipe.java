@@ -6,31 +6,38 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.stereotype.Component;
 
-@Document(collection = "users")
+import java.util.List;
+
+@Document(collection = "recipes")
 @NoArgsConstructor
 @Getter
 @Setter
-public class User {
+public class Recipe {
     @Id
     private String id;
 
     @Field
-    private String email;
+    private String title;
 
     @Field
-    private String password;
+    private String description;
 
     @Field
-    private String firstName;
+    private Integer calorie;
 
     @Field
-    private String lastName;
+    private Integer protein;
 
     @Field
-    private Integer height;
+    private Integer fat;
 
     @Field
-    private Integer weight;
+    private Integer carbohydrate;
+
+    @Field
+    private List<RecipeIngredient> ingredients;
+
+    @Field
+    private List<RecipeStep> steps;
 }

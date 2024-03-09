@@ -50,6 +50,12 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<UserDto> register(@RequestBody UserDto userDto) {
+        UserDto existingUserDto = userService.getUserByEmail(userDto.getEmail());
+
+        if (existingUserDto != null) {
+            return ResponseEntity.badRequest().build();
+        }
+
         if (!Validator.isEmailValid(userDto.getEmail()) && !Validator.isPasswordValid(userDto.getPassword()) && !Validator.isNameValid(userDto.getFirstName()) && !Validator.isNameValid(userDto.getLastName()) && !Validator.isHeightValid(userDto.getHeight()) && !Validator.isWeightValid(userDto.getWeight())) {
             return ResponseEntity.badRequest().build();
         }
@@ -68,8 +74,11 @@ public class AuthController {
         UserDto userDto = new UserDto();
 
         userDto.setEmail(googleLoginRequest.getEmail());
+        userDto.setPassword("");
         userDto.setFirstName(googleLoginRequest.getFirstName());
         userDto.setLastName(googleLoginRequest.getLastName());
+        userDto.setHeight(null);
+        userDto.setWeight(null);
 
         return ResponseEntity.ok(userService.saveUser(userDto));
     }

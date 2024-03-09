@@ -39,14 +39,14 @@ public class UserMapper {
         return user;
     }
 
-    public static UserDto updateDto(UserDto existingUser, UserDto modifiedUser) {
-        existingUser.setEmail(modifiedUser.getEmail() != null ? modifiedUser.getEmail() : existingUser.getEmail());
-        existingUser.setPassword(modifiedUser.getPassword() != null ? modifiedUser.getPassword() : existingUser.getPassword());
-        existingUser.setFirstName(modifiedUser.getFirstName() != null ? modifiedUser.getFirstName() : existingUser.getFirstName());
-        existingUser.setLastName(modifiedUser.getLastName() != null ? modifiedUser.getLastName() : existingUser.getLastName());
-        existingUser.setHeight(modifiedUser.getHeight() != null ? modifiedUser.getHeight() : existingUser.getHeight());
-        existingUser.setWeight(modifiedUser.getWeight() != null ? modifiedUser.getWeight() : existingUser.getWeight());
+    public static UserDto updateDto(UserDto oldUser, UserDto newUser) {
+        oldUser.setEmail(newUser.getEmail() != null ? newUser.getEmail() : oldUser.getEmail());
+        oldUser.setPassword(newUser.getPassword() != null ? newUser.getPassword() : oldUser.getPassword());
+        oldUser.setFirstName(newUser.getFirstName() != null ? newUser.getFirstName() : oldUser.getFirstName());
+        oldUser.setLastName(newUser.getLastName() != null ? newUser.getLastName() : oldUser.getLastName());
+        oldUser.setHeight(newUser.getHeight() != null ? newUser.getHeight() : oldUser.getHeight());
+        oldUser.setWeight(newUser.getWeight() != null ? newUser.getWeight() : oldUser.getWeight());
 
-        return existingUser;
+        return oldUser;
     }
 }
