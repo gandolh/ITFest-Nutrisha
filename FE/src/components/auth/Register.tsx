@@ -69,7 +69,7 @@ export default function Register() {
     <div className={classes.wrapper}>
       <Paper className={classes.form} radius={0} p={30}>
         <Title order={2} className={classes.title} ta="center" mt="md" mb={50}>
-          Welcome back to Mantine!
+          Welcome back to Nutritisha!
         </Title>
 
         <Group grow wrap="nowrap">

@@ -90,7 +90,7 @@ export default function Login() {
 						mt="md"
 						mb={50}
 					>
-						Welcome back to Nutrition-Assistant!
+						Welcome back to Nutritisha!
 					</Title>
 
 					<TextInput
