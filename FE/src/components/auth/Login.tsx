@@ -35,9 +35,6 @@ export default function Login() {
 	const HandleLogin = () => {
 		const output = form.validate();
 		if (output.hasErrors == true) return;
-		// do call
-		console.log(form.values);
-
 		LoginCall(form.values.email, form.values.password);
 	};
 

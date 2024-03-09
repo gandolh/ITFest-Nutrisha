@@ -1,14 +1,13 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
-
+import { redirect } from "react-router-dom";
 
 
 const LoginCall = async  (email : string, password : string) => { 
     // do post call with axios. in body send email and password. The url is http://localhost:8080/auth/login
      await axios.post('http://localhost:8080/auth/login', { email, password })
-        .then(response => {
-            // handle response
-            return response;
+        .then(_ => {
+            redirect("/");
         })
         .catch(error => {
             if(error.response!.status == 400)
@@ -23,14 +22,14 @@ const LoginCall = async  (email : string, password : string) => {
 const RegisterCall = async  (user : User) => {
     // do post call with axios. in body send user. The url is http://localhost:8080/auth/register
     await axios.post('http://localhost:8080/auth/register', user)
-        .then(response => {
-            console.log(response);
-            return response;
+        .then(_ => {
+            redirect("/login");
+
         })
-        .catch(error => {
+        .catch(_ => {
             toast("You really f up something.")
         });
-
+        redirect("/login");
 }
 
 export {
