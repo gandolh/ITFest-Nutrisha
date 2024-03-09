@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class RecipeIngredient {
-    private Integer amount;
+    private String amount;
     private String name;
 }

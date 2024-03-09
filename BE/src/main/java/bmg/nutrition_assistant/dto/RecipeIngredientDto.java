@@ -8,6 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RecipeIngredientDto {
-    private Integer amount;
+    private String amount;
     private String name;
 }
