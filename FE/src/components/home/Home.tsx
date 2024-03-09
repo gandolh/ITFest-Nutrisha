@@ -1,9 +1,20 @@
+import { Container, SimpleGrid } from "@mantine/core";
+import WelcomeCard from "./WelcomeCard";
+import HomeStats from "./HomeStats";
+import TodayPlan from "./TodayPlan";
 
 
 const Home = () => {
-    return (
-        <h1>Home <br/> VITE_SOME_KEY: {import.meta.env.VITE_SOME_KEY}</h1>
-      );
+  return (
+
+     <Container size='xl' pt={30}>
+      <SimpleGrid cols={3}>
+        <WelcomeCard/>
+        <TodayPlan/>
+        <HomeStats/>
+      </SimpleGrid>
+    </Container>
+  );
 }
- 
+
 export default Home;
