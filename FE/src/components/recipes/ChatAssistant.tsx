@@ -1,5 +1,5 @@
 import { Button, TextInput, Title } from "@mantine/core";
-import { IconMessageCircle2, IconMinus, IconSend } from "@tabler/icons-react";
+import { IconMessageCircle2, IconMinus, IconRobotFace, IconSend } from "@tabler/icons-react";
 import React from "react";
 
 const ChatAssistant = () => {
@@ -20,7 +20,7 @@ const ChatAssistant = () => {
     return (
         <div className="absolute bottom-[25px] right-[25px]">
             {!toggleChat && (<div
-                className="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center"
+                className="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center hover:cursor-pointer"
                 onClick={handleToggleChat}>
                 <IconMessageCircle2 size={32} color="white" />
             </div>)
@@ -37,32 +37,34 @@ type ChatBoxProps = {
 }
 
 const ChatBox = ({ handleToggleChat, messages }: ChatBoxProps) => {
-    return (<div className="w-[380px] h-[600px] bg-[#F5A9B8] rounded-lg flex flex-col items-center justify-center">
-        <div className="flex w-full items-center mt-2">
+    return (<div className="w-[380px] h-[600px] bg-[#CCC] rounded-lg flex flex-col items-center justify-center">
+        <div className="flex w-full items-center mt-2 pb-2 border-b-2 border-white">
             <div className="grow flex justify-center">
-                <Title order={4}>Ask about selected recipe</Title>
+                <Title order={4}>Ask Bob about selected recipe</Title>
             </div>
-            <p className="font-bold pr-4 " onClick={handleToggleChat}> <IconMinus /> </p>
+            <p className="font-bold pr-4 hover:cursor-pointer" onClick={handleToggleChat}> <IconMinus /> </p>
         </div>
 
         <div className="grow pt-2 gap-2 flex flex-col overflow-auto" >
         {messages.map((message, index) => {
             const align = message.side === 'left' ? 'justify-start' : 'justify-end';
-            const color = message.side === 'left' ? 'bg-white' : 'bg-[#5BCEFA]';
-            
+            const color = message.side === 'left' ? 'bg-white' : 'bg-[#0AF]';
+            const icon = message.side === 'left' ? <IconRobotFace size={40} color="black" className="bg-white flex rounded-full items-center justify-center p-[4px] mr-2"/> :<></>;
+
             return (
             <div key={"message_" + index} className={"flex " + align}>
-            <div className={`${color} p-2 rounded-lg`}>
+                {icon}
+                <div className={`${color} p-2 rounded-lg`}>
                     <p>
                         {message.isLoading === false ?  message.text : "Loading..."}
                         </p>
-                </div>
+                </div> 
             </div>
         )})}    
         </div>
-        <div className="flex w-full">
-            <TextInput className="grow" />
-            <Button variant="dark"><IconSend/></Button>
+        <div className="flex w-full border-t-2 pt-4 border-white">
+            <TextInput className="grow mb-4 ml-4" />
+            <Button variant="dark" className="mb-4 mr-4 ml-2"><IconSend/></Button>
         </div>
     </div>);
 }

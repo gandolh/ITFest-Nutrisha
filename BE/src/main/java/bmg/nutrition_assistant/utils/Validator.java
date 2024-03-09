@@ -2,7 +2,7 @@ package bmg.nutrition_assistant.utils;
 
 public class Validator {
     public static boolean isEmailValid(String email) {
-        return email.matches("^[A-Za-z0-9+_.-]+@(.+)$");
+        return email.matches("^[A-Za-z0-9+_.-]+@\\w+\\.[.A-Za-z]{2,3}$");
     }
 
     public static boolean isPasswordValid(String password) {
