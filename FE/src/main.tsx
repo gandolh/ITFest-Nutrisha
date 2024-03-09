@@ -11,9 +11,21 @@ import '@mantine/nprogress/styles.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { ToastContainer } from "react-toastify";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+		  <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"/>
 		<App />
 	</GoogleOAuthProvider>
 );

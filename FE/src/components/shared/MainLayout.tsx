@@ -1,7 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { HeaderMegaMenu } from "./HeaderMegaMenu";
-import { ToastContainer } from 'react-toastify';
 
 
 export default function MainLayout() {
@@ -19,17 +18,6 @@ export default function MainLayout() {
 
   return (
     <>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"/>
       <HeaderMegaMenu NavLinks={NavLinks} handleChangeActive={changeActive} />
       <Outlet />
         </>

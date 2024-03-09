@@ -11,7 +11,7 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import classes from "./Login.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "@mantine/form";
 import { GoogleLoginCall, LoginCall } from "../../apiCallers/AuthApiCaller";
 
@@ -32,10 +32,17 @@ export default function Login() {
 		},
 	});
 
-	const HandleLogin = () => {
+	const navigate = useNavigate();
+
+	const HandleLogin =  () => {
 		const output = form.validate();
 		if (output.hasErrors == true) return;
-		LoginCall(form.values.email, form.values.password);
+		 LoginCall(form.values.email, form.values.password).then(ok => {
+			console.log(ok)
+			if (ok != -1) {
+			  navigate("/");
+			}
+		  });
 	};
 
 	// Google Login

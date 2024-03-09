@@ -11,7 +11,7 @@ import {
   NumberInput,
 } from '@mantine/core';
 import classes from './Register.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '@mantine/form';
 import { RegisterCall } from '../../apiCallers/AuthApiCaller';
 
@@ -38,6 +38,9 @@ export default function Register() {
     },
   });
 
+  const navigate = useNavigate();
+
+
   const HandleRegister = () => {
     const output = form.validate();
     if (output.hasErrors == true) return;
@@ -52,7 +55,12 @@ export default function Register() {
       height: form.values.height,
     } as User;
 
-    RegisterCall(user);
+    RegisterCall(user).then(ok => {
+      console.log(ok)
+      if (ok != -1) {
+        navigate('/login');
+      }
+    });
   }
 
 
