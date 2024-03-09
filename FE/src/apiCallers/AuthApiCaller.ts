@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
+
 
 
 const LoginCall = async  (email : string, password : string) => { 
@@ -6,13 +8,14 @@ const LoginCall = async  (email : string, password : string) => {
      await axios.post('http://localhost:8080/auth/login', { email, password })
         .then(response => {
             // handle response
-            console.log(response);
             return response;
         })
         .catch(error => {
-            //TODO: toast error
-            // treat bad request and not found some time
-            console.log(error.code);
+            if(error.response!.status == 400)
+                toast("Ai introdus o parola sau o adresa de email invalida")
+            else if(error.response!.status == 404)
+                toast("Utilizatorul nu a fost gasit.")
+            toast("Unexpected problem")
         });
 }
 
@@ -25,7 +28,7 @@ const RegisterCall = async  (user : User) => {
             return response;
         })
         .catch(error => {
-            console.log(error.code);
+            toast("You really f up something.")
         });
 
 }

@@ -10,7 +10,6 @@ import Recipes from './components/recipes/Recipes';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 
-
 const router = createBrowserRouter([
   {
     path: "",
