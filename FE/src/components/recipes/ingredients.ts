@@ -342,6 +342,7 @@ export const ingredients = [
     "apple juice",
     "parmigiano-reggiano",
     "candy",
+    "pistachio",
     "herbs",
     "ground white pepper",
     "bread flour",
