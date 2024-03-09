@@ -188,9 +188,20 @@ def add_recipe(title):
         "carbohydrate": nutritional_numbers[3]
     }
 
+    newRecipe = {
+        "title": title,
+        "description": description,
+        "ingredients": ingredients_json,
+        "steps": steps_json,
+        "calories": nutritional_numbers[0],
+        "protein": nutritional_numbers[1],
+        "fat": nutritional_numbers[2],
+        "carbohydrate": nutritional_numbers[3]
+    }
+
     recipes.insert_one(recipe)
 
-    return recipe
+    return newRecipe
 
 
 @app.route('/recipes/addRecipesByIngredients', methods=['POST'])
