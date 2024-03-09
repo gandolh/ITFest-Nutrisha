@@ -15,7 +15,7 @@ public class Validator {
     }
 
     public static boolean isHeightValid(Integer height) {
-        return height == null || (height >= 0 && height <= 30);
+        return height == null || (height >= 0 && height <= 300);
     }
 
     public static boolean isWeightValid(Integer weight) {
