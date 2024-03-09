@@ -9,7 +9,6 @@ const HomeStats = () => {
       shadow="sm"
       padding="xl"
     >
-      <Card.Section>
         <Title order={1}>
           Home Stats
         </Title>
@@ -30,7 +29,6 @@ const HomeStats = () => {
           />
           </Stack>
 
-      </Card.Section>
 
 
     </Card>

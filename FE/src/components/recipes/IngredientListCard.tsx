@@ -41,7 +41,7 @@ const IngredientListCard = ({ingredientList,setIngredientList} : IngredientListC
             className="flex flex-col"
         >
                 <div>
-                <Title order={1}>
+                <Title order={3}>
                     Ingredient List
                 </Title>
                 <Divider my="md" />

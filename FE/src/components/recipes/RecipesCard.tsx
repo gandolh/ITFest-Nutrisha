@@ -17,13 +17,13 @@ const RecipesCard = ({ OnSearchRecipes, recipes, selectedRecipe, setSelectedReci
       padding="xl"
     >
       <div className="flex justify-between items-center align-middle">
-        <Title order={1}>
+        <Title order={3}>
           Found Recipes
         </Title>
         <Button onClick={OnSearchRecipes}> <IconSearch /> Search </Button>
       </div>
       <Divider my="md" />
-      <Stack className="grow">
+      <Stack className="grow overflow-y-auto pr-[4px]">
         {recipes.map((recipe, index) => (
           <div key={index} className={"border border-gray-200 rounded p-2 " +
             (recipe === selectedRecipe ? activeClass : inactiveClass)}
@@ -31,7 +31,7 @@ const RecipesCard = ({ OnSearchRecipes, recipes, selectedRecipe, setSelectedReci
             >
             <p>{recipe.title}</p>
             <Text lineClamp={2} c="dimmed">
-              {recipe.title}
+              {recipe.description}
               
             </Text>
           </div>

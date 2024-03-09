@@ -7,7 +7,6 @@ const TodayPlan = () => {
       shadow="sm"
       padding="xl"
     >
-      <Card.Section>
         <Title order={1}>
           Today's Plan
         </Title>
@@ -28,7 +27,6 @@ const TodayPlan = () => {
               <ListItem>Sleep 😊</ListItem>
             </List></List.Item>
         </List>
-      </Card.Section>
 
 
     </Card>

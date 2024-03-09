@@ -1,7 +1,7 @@
 type Recipe = {
     title: string,
     description: string,
-    calorie: number,
+    calories: number,
     protein: number,
     fat: number,
     carbohydrate: number,
