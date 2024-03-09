@@ -1,17 +1,20 @@
 import {
   Group,
-  Button,
   Divider,
   Box,
   Burger,
   Drawer,
   ScrollArea,
   rem,
+  Stack,
 } from '@mantine/core';
 import { MantineLogo } from '@mantinex/mantine-logo';
 import { useDisclosure } from '@mantine/hooks';
 import { Link } from "react-router-dom";
 import classes from './HeaderMegaMenu.module.css';
+import AuthGroup from './AuthGroupLarge';
+import AuthGroupMobile from './AuthGroupMobile';
+import { getLocalStorageUser } from '../../apiCallers/AuthApiCaller';
 // import classes from '../css/HeaderMegaMenu.module.css';
 
 type HeaderMegaMenuProps = {
@@ -21,6 +24,8 @@ type HeaderMegaMenuProps = {
 
 export function HeaderMegaMenu({ NavLinks, handleChangeActive }: HeaderMegaMenuProps) {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
+  const authenticatedUser = getLocalStorageUser();
+
   return (
     <Box>
       <header className={classes.header}>
@@ -37,14 +42,7 @@ export function HeaderMegaMenu({ NavLinks, handleChangeActive }: HeaderMegaMenuP
               </Link>
             ))}
           </Group>
-          <Group visibleFrom="sm">
-            <Link to="/login">
-              <Button variant="default">Log in</Button>
-            </Link>
-            <Link to="/register">
-              <Button>Sign up</Button>
-            </Link>
-          </Group>
+          <AuthGroup authenticatedUser={authenticatedUser}/>
 
           <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />
         </Group>
@@ -61,19 +59,17 @@ export function HeaderMegaMenu({ NavLinks, handleChangeActive }: HeaderMegaMenuP
       >
         <ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md">
           <Divider my="sm" />
+          <Stack gap={0}>
           {NavLinks.map((link) => (
-            <Link to={link.anchor} className={classes.link} key={link.id}
-              onClick={() => handleChangeActive(link.id)}
-              data-active={link.active}>
+            <Link  to={link.anchor} className={classes.link + " " + "text-lg"} key={link.id}
+            onClick={() => handleChangeActive(link.id)}
+            data-active={link.active ? link.active : undefined}>
               {link.name}
             </Link>
           ))}
+          </Stack>
           <Divider my="sm" />
-
-          <Group justify="center" grow pb="xl" px="md">
-            <Button variant="default">Log in</Button>
-            <Button>Sign up</Button>
-          </Group>
+            <AuthGroupMobile authenticatedUser={authenticatedUser}/>
         </ScrollArea>
       </Drawer>
     </Box>

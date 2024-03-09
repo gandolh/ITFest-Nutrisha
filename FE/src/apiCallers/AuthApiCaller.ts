@@ -1,13 +1,20 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
+const getLocalStorageUser = () : User | null => {
+    const user = window.localStorage.getItem("authenticatedUser");
+    if (user) {
+        return JSON.parse(user);
+    }
+    return null;
+}
 
 const LoginCall = async  (email : string, password : string) : Promise<Number>  => { 
     // do post call with axios. in body send email and password. The url is http://localhost:8080/auth/login
     try {
         const resp = await axios.post('http://localhost:8080/auth/login', { email, password });
-        console.log(resp.data);
-        // window.localStorage.setItem("token", resp.data);
+        
+        window.localStorage.setItem("authenticatedUser", JSON.stringify(resp.data));
         return 0;
     } catch (err : any) {
         if ( err.response.status === 400) {
@@ -49,6 +56,7 @@ const GoogleLoginCall = async  (email : string , firstName : string, lastName: s
 }
 
 export {
+    getLocalStorageUser,
     LoginCall,
     RegisterCall,
     GoogleLoginCall
