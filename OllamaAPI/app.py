@@ -190,6 +190,8 @@ def add_recipe(title):
 
     recipes.insert_one(recipe)
 
+    return recipe
+
 
 @app.route('/recipes/addRecipesByIngredients', methods=['POST'])
 def add_recipes_by_ingredients():
@@ -205,12 +207,11 @@ def add_recipes_by_ingredients():
 
     titles = [x[3 : ] for x in response]
 
-    for title in titles:
-        add_recipe(title)
-
     added_recipes = []
     for title in titles:
-        added_recipes.append(recipes.find_one({"title": title}))
+        added_recipes.append(add_recipe(title))
+
+    added_recipes = [x for x in added_recipes if x != 0]
 
     return added_recipes
 
