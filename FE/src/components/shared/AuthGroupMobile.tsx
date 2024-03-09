@@ -1,5 +1,7 @@
 import { Button, Group, Stack } from "@mantine/core";
+import { useAuthContext } from "../auth/AuthContext";
 import { useNavigate } from "react-router-dom";
+
 
 
 type AuthGroupMobileProps = {
@@ -7,6 +9,8 @@ type AuthGroupMobileProps = {
 }
 const AuthGroupMobile = ({ authenticatedUser }: AuthGroupMobileProps) => {
     const navigate = useNavigate();
+	const {setCurentUser} = useAuthContext();
+
 
     const HandleRedirectMyInfo = () => {
         navigate('/myinfo')
@@ -14,6 +18,7 @@ const AuthGroupMobile = ({ authenticatedUser }: AuthGroupMobileProps) => {
 
     const HandleLogout = () => {
         localStorage.removeItem('authenticatedUser');
+        setCurentUser(null);
         navigate('/');
     }
 

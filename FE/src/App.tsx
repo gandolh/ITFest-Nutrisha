@@ -9,6 +9,7 @@ import Home from './components/home/Home';
 import Recipes from './components/recipes/Recipes';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
+import { AuthProvider } from './components/auth/AuthContext';
 
 const router = createBrowserRouter([
   {
@@ -43,7 +44,9 @@ const router = createBrowserRouter([
 export default function App() {
   return (
     <MantineProvider defaultColorScheme="dark">
+      <AuthProvider>
       <RouterProvider router={router} />
+      </AuthProvider>
     </MantineProvider>
   )
 } 

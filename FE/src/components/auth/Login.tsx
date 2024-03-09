@@ -6,7 +6,6 @@ import {
 	Button,
 	Title,
 	Text,
-	Anchor,
 } from "@mantine/core";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -16,6 +15,7 @@ import { useForm } from "@mantine/form";
 import { GoogleLoginCall, LoginCall } from "../../apiCallers/AuthApiCaller";
 
 import { useGoogleLogin } from "@react-oauth/google";
+import { useAuthContext } from "./AuthContext";
 
 export default function Login() {
 	const form = useForm({
@@ -33,11 +33,17 @@ export default function Login() {
 	});
 
 	const navigate = useNavigate();
+	const {setCurentUser} = useAuthContext();
+
+	const handleLoginConfirmed = (user: User) => {
+		window.localStorage.setItem("authenticatedUser", JSON.stringify(user));
+		setCurentUser(user);
+	}
 
 	const HandleLogin =  () => {
 		const output = form.validate();
 		if (output.hasErrors == true) return;
-		 LoginCall(form.values.email, form.values.password).then(ok => {
+		 LoginCall(form.values.email, form.values.password, handleLoginConfirmed).then(ok => {
 			console.log(ok)
 			if (ok != -1) {
 			  navigate("/");

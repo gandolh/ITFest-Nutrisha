@@ -3,6 +3,7 @@ import { IconChevronDown } from '@tabler/icons-react';
 import classes from './UserButton.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToggleThemeComp } from './ToggleThemeComp';
+import { useAuthContext } from '../auth/AuthContext';
 
 type PowerButtonProps = {
     authenticatedUser: User;
@@ -11,9 +12,11 @@ type PowerButtonProps = {
 
 const PowerButton = ({ authenticatedUser }: PowerButtonProps) => {
     const navigate = useNavigate();
+	const {setCurentUser} = useAuthContext();
 
     const HandleLogout = () => {
         localStorage.removeItem('authenticatedUser');
+        setCurentUser(null);
         navigate('/');
     }
 
