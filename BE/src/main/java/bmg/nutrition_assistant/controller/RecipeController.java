@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -33,6 +34,10 @@ public class RecipeController {
 
     @PostMapping("/byIngredients")
     public ResponseEntity<List<RecipeDto>> getRecipesByIngredients(@RequestBody List<String> ingredients) {
+        if (ingredients == null || ingredients.isEmpty()) {
+            return ResponseEntity.ok(new ArrayList<>());
+        }
+
         return ResponseEntity.ok(recipeService.getRecipesByIngredients(ingredients));
     }
 
