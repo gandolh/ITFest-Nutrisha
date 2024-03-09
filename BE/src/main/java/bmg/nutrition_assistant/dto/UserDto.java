@@ -15,4 +15,5 @@ public class UserDto {
     private String lastName;
     private Integer height;
     private Integer weight;
+    private MealPlanDto mealPlan;
 }

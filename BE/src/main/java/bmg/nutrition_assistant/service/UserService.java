@@ -1,5 +1,7 @@
 package bmg.nutrition_assistant.service;
 
+import bmg.nutrition_assistant.dto.DayPlanDto;
+import bmg.nutrition_assistant.dto.MealPlanDto;
 import bmg.nutrition_assistant.dto.UserDto;
 import bmg.nutrition_assistant.mapper.UserMapper;
 import bmg.nutrition_assistant.repository.UserRepository;
@@ -29,6 +31,18 @@ public class UserService {
     }
 
     public UserDto saveUser(UserDto userDto) {
+        MealPlanDto mealPlanDto = new MealPlanDto();
+
+        mealPlanDto.setMonday(new DayPlanDto(null, null, null, null, null));
+        mealPlanDto.setTuesday(new DayPlanDto(null, null, null, null, null));
+        mealPlanDto.setWednesday(new DayPlanDto(null, null, null, null, null));
+        mealPlanDto.setThursday(new DayPlanDto(null, null, null, null, null));
+        mealPlanDto.setFriday(new DayPlanDto(null, null, null, null, null));
+        mealPlanDto.setSaturday(new DayPlanDto(null, null, null, null, null));
+        mealPlanDto.setSunday(new DayPlanDto(null, null, null, null, null));
+
+        userDto.setMealPlan(mealPlanDto);
+
         return UserMapper.toDto(userRepository.save(UserMapper.toEntity(userDto)));
     }
 

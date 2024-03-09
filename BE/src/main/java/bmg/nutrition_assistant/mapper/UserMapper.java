@@ -18,6 +18,7 @@ public class UserMapper {
         userDto.setLastName(user.getLastName());
         userDto.setHeight(user.getHeight());
         userDto.setWeight(user.getWeight());
+        userDto.setMealPlan(MealPlanMapper.toDto(user.getMealPlan()));
 
         return userDto;
     }
@@ -35,6 +36,7 @@ public class UserMapper {
         user.setLastName(userDto.getLastName());
         user.setHeight(userDto.getHeight());
         user.setWeight(userDto.getWeight());
+        user.setMealPlan(MealPlanMapper.toEntity(userDto.getMealPlan()));
 
         return user;
     }
@@ -46,6 +48,7 @@ public class UserMapper {
         oldUser.setLastName(newUser.getLastName() != null ? newUser.getLastName() : oldUser.getLastName());
         oldUser.setHeight(newUser.getHeight() != null ? newUser.getHeight() : oldUser.getHeight());
         oldUser.setWeight(newUser.getWeight() != null ? newUser.getWeight() : oldUser.getWeight());
+        oldUser.setMealPlan(newUser.getMealPlan() != null ? newUser.getMealPlan() : oldUser.getMealPlan());
 
         return oldUser;
     }

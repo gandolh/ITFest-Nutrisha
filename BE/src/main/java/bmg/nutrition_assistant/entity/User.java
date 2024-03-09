@@ -33,4 +33,7 @@ public class User {
 
     @Field
     private Integer weight;
+
+    @Field
+    private MealPlan mealPlan;
 }
