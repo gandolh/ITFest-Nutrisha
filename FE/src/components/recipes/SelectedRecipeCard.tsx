@@ -22,7 +22,7 @@ const SelectedRecipeCard = ({ selectedRecipe }: SelectedRecipeCardProps) => {
             >
                 <div className="flex justify-between items-center align-middle">
                     <Title order={3} className="w-48"> {toTitleCase(selectedRecipe?.title.toLowerCase())}</Title>
-                    <Button onClick={open}> <IconCalendar /> Add </Button>
+                    <Button onClick={open} color="indigo"> <IconCalendar /> Add </Button>
                 </div>
                 <Divider my="md" />
                 <div className="overflow-y-auto">
