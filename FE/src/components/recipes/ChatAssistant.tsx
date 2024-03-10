@@ -1,6 +1,7 @@
 import { Button, TextInput, Title, useMantineColorScheme } from "@mantine/core";
 import { IconMessageCircle2, IconMinus, IconRobotFace, IconSend } from "@tabler/icons-react";
 import React from "react";
+import { ChatWithBob } from "./RecipesApiCallers";
 
 const ChatAssistant = () => {
     const [toggleChat, setToggleChat] = React.useState<boolean>(false);
@@ -10,11 +11,20 @@ const ChatAssistant = () => {
 
         if(messages[messages.length - 1].isLoading === true)return;
         
+
         setMessages(prev =>
             [...prev,
             { text: msg, side: 'right', isLoading: false } as Message,
             { text: '', side: 'left', isLoading: true } as Message,
             ]);
+
+            ChatWithBob(msg).then(response => {
+                setMessages(prev => {
+                    prev.pop();
+                    return [...prev, { text: response, side: 'left', isLoading: false } as Message];
+                });
+            });
+        
     }
 
     return (
@@ -41,7 +51,10 @@ const ChatBox = ({ handleToggleChat, messages, HandleSendMessage }: ChatBoxProps
     const { colorScheme } = useMantineColorScheme();
     const [chatText, setChatText] = React.useState<string>('');
     const handleChangeChatText = (e: React.ChangeEvent<HTMLInputElement>) => setChatText(e.target.value);
-
+    const preHandleMesageChange = (msg: string) => {
+        setChatText('');
+        HandleSendMessage(msg);
+    }
 
     const chatBg = colorScheme === 'light'
         ? 'w-[380px] h-[600px] bg-gray-100 rounded-lg flex flex-col items-center justify-center'
@@ -78,7 +91,7 @@ const ChatBox = ({ handleToggleChat, messages, HandleSendMessage }: ChatBoxProps
         </div>
         <div className={`flex w-full border-t-2 pt-4 ${colorScheme === 'light' ? "border-white" : " border-gray-400"}`}>
             <TextInput value={chatText} onChange={handleChangeChatText} className="grow mb-4 ml-4" />
-            <Button onClick={() => HandleSendMessage(chatText)} variant="dark" className="mb-4 mr-4 ml-2 bg-indigo-500"><IconSend /></Button>
+            <Button onClick={() => preHandleMesageChange(chatText)} variant="dark" className="mb-4 mr-4 ml-2 bg-indigo-500"><IconSend /></Button>
         </div>
     </div>);
 }

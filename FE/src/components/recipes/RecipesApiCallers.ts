@@ -39,9 +39,20 @@ const GenerateNewRecipes = async (ingredients : string[]) : Promise<Recipe[]> =>
         });
 }
 
+const ChatWithBob = async (prompt : string) : Promise<string> => {
+    return axios.post('http://localhost:5000/chat', { "prompt": prompt })
+        .then(response => {
+            return response.data;
+        })
+        .catch(_ => {
+            toast("Bob is not available");
+            return "";
+        });
+}
 
 export {
     getRecipesByIngredients,
     updateUser,
-    GenerateNewRecipes
+    GenerateNewRecipes,
+    ChatWithBob
 }
