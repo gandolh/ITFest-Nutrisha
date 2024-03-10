@@ -20,7 +20,7 @@ const ChatAssistant = () => {
     return (
         <div className="absolute bottom-[25px] right-[25px]">
             {!toggleChat && (<div
-                className="w-20 h-20 bg-indigo-500 rounded-full flex items-center justify-center hover:cursor-pointer"
+                className="w-16 h-16 bg-indigo-500 rounded-full flex items-center justify-center hover:cursor-pointer"
                 onClick={handleToggleChat}>
                 <IconMessageCircle2 size={32} color="white" />
             </div>)
