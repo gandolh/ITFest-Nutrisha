@@ -13,6 +13,9 @@ const Recipes = () => {
     const [ingredientList, setIngredientList] = React.useState<string[]>([]);
     const [recipes, setRecipes] = React.useState<Recipe[]>([]);
     const [selectedRecipe, setSelectedRecipe] = React.useState<Recipe | null>(null);
+    const [loadingRecipies, setLoadingRecipies] = React.useState<boolean>(false);
+
+
 
     const HandleSearchRecipes = () => {
         getRecipesByIngredients(ingredientList).then(recipes => {
@@ -21,8 +24,10 @@ const Recipes = () => {
     }
 
     const HandleGenerateRecipes = () => {
+        setLoadingRecipies(true);
         GenerateNewRecipes(ingredientList).then((_) => {
             HandleSearchRecipes();
+            setLoadingRecipies(false);
         });
       }
 
@@ -36,6 +41,7 @@ const Recipes = () => {
                     recipes={recipes} selectedRecipe={selectedRecipe}
                     setSelectedRecipe={setSelectedRecipe} 
                     onGenerateRecipes={HandleGenerateRecipes}
+                    loadingRecipies={loadingRecipies}
                     />
                 {selectedRecipe === null ? <EmptyCard /> : <SelectedRecipeCard selectedRecipe={selectedRecipe} />}
             </SimpleGrid>

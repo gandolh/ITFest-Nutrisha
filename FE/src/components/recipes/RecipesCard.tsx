@@ -1,4 +1,4 @@
-import { Button, Card, Divider, Stack, Title, Text,  Box } from "@mantine/core";
+import { Button, Card, Divider, Stack, Title, Text,  Box, Loader } from "@mantine/core";
 import {  IconSearch } from "@tabler/icons-react";
 import { useState } from "react";
 import { toTitleCase } from "../../utils/helpers";
@@ -8,21 +8,21 @@ type RecipesCardProps = {
   selectedRecipe: Recipe | null;
   setSelectedRecipe: React.Dispatch<React.SetStateAction<Recipe | null>>;
   onGenerateRecipes: () => void;
+  loadingRecipies: boolean;
 }
 
 
-const RecipesCard = ({ OnSearchRecipes, recipes, selectedRecipe, setSelectedRecipe, onGenerateRecipes }: RecipesCardProps) => {
+const RecipesCard = ({ OnSearchRecipes, recipes, selectedRecipe, setSelectedRecipe, onGenerateRecipes, loadingRecipies }: RecipesCardProps) => {
   const activeClass = "border bg-indigo-500 rounded p-2 text-white ";
   const inactiveClass = "border border-gray-200 rounded p-2";
   const [searched, setSearched] = useState<Boolean>(false);
-
 
   const handleSearchRecipes = () => {
     setSearched(true);
     OnSearchRecipes();
   }
 
-
+  
 
   return (
     <>
@@ -53,7 +53,9 @@ const RecipesCard = ({ OnSearchRecipes, recipes, selectedRecipe, setSelectedReci
         {recipes.length > 0  && <Divider my="xs" />}
         {searched &&  (
           <Box className="w-full">
-          <Button variant='filled' color="indigo" style={{width:'100%'}} onClick={onGenerateRecipes}> Generate new recipes </Button>
+            <Button variant='filled' color="indigo" style={{width:'100%'}} onClick={onGenerateRecipes} disabled={loadingRecipies}> 
+            {loadingRecipies === false ? "Generate new recipes" : <Loader color="violet" type="dots" />}
+            </Button>
           </Box>
         )}
       </Stack>

@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { ingredients } from './ingredients';
 
 const getRecipesByIngredients = async (ingredients : string[]) : Promise<Recipe[]> => {
+    ingredients.forEach((ingredient) => ingredient.toLowerCase());
     // do post call with axios. in body send ingredients. The url is http://localhost:8080/recipes/byIngredients
     return axios.post('http://localhost:8080/recipes/byIngredients', ingredients)
         .then(response => {
@@ -28,6 +28,7 @@ const updateUser = async (user : User) : Promise<User> => {
 }
 
 const GenerateNewRecipes = async (ingredients : string[]) : Promise<Recipe[]> => {
+    ingredients.forEach((ingredient) => ingredient.toLowerCase());
     return axios.post('http://127.0.0.1:5000/recipes/addRecipesByIngredients', ingredients)
         .then(response => {
             return response.data;
