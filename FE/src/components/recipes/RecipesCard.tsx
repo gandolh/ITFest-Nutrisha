@@ -2,6 +2,7 @@ import { Button, Card, Divider, Stack, Title, Text,  Box } from "@mantine/core";
 import {  IconSearch } from "@tabler/icons-react";
 import { useState } from "react";
 import { toTitleCase } from "../../utils/helpers";
+import { GenerateNewRecipes } from "./RecipesApiCallers";
 
 type RecipesCardProps = {
   OnSearchRecipes: () => void;
@@ -22,6 +23,11 @@ const RecipesCard = ({ OnSearchRecipes, recipes, selectedRecipe, setSelectedReci
     OnSearchRecipes();
   }
 
+  const HandleGenerateRecipes = () => {
+    GenerateNewRecipes().then((_) => {
+      OnSearchRecipes();
+    });
+  }
 
   return (
     <>
@@ -52,7 +58,7 @@ const RecipesCard = ({ OnSearchRecipes, recipes, selectedRecipe, setSelectedReci
         {recipes.length > 0  && <Divider my="xs" />}
         {searched &&  (
           <Box className="w-full">
-          <Button variant='filled' color="indigo" style={{width:'100%'}}> Generate new recipes </Button>
+          <Button variant='filled' color="indigo" style={{width:'100%'}} onClick={HandleGenerateRecipes}> Generate new recipes </Button>
           </Box>
         )}
       </Stack>
