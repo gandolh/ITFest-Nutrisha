@@ -1,4 +1,5 @@
 from flask import Flask, request
+from flask_cors import CORS, cross_origin
 import ollama
 from pymongo import MongoClient
 from dotenv import dotenv_values
@@ -6,6 +7,8 @@ from dotenv import dotenv_values
 config = dotenv_values(".env")
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 client = MongoClient(config['CONNECTION_STRING'])
 db = client['nutrition-assistant']
@@ -16,6 +19,7 @@ ollama_model = 'gemma'
 
 
 @app.route('/recipes/generate', methods=['GET'])
+@cross_origin()
 def call_ollama():
     count = 0
     total = recipes.count_documents({})
@@ -156,7 +160,9 @@ def add_recipe(title):
     ingredients_json = []
     for ingredient in ingredients:
         ingredients_temp = ingredient.split(' ')
-        if ingredients_temp[1].find('cup') != -1 or ingredients_temp[1].find('tsp') != -1 or ingredients_temp[1].find('tbsp') != -1 or ingredients_temp[1].find('oz') != -1 or ingredients_temp[1].find('lb') != -1 or ingredients_temp[1].find('pound') != -1 or ingredients_temp[1].find('teaspoon') != -1 or ingredients_temp[1].find('tablespoon') != -1:
+        if len(ingredients_temp) == 1:
+            ingredients_json.append({"amount": "", "name": ingredients_temp[0]})
+        elif ingredients_temp[1].find('cup') != -1 or ingredients_temp[1].find('tsp') != -1 or ingredients_temp[1].find('tbsp') != -1 or ingredients_temp[1].find('oz') != -1 or ingredients_temp[1].find('lb') != -1 or ingredients_temp[1].find('pound') != -1 or ingredients_temp[1].find('teaspoon') != -1 or ingredients_temp[1].find('tablespoon') != -1:
             ingredients_json.append({"amount": ingredients_temp[0] + ' ' + ingredients_temp[1], "name": ' '.join(ingredients_temp[2 : ])})
         elif ingredients_temp[0].isdigit():
             ingredients_json.append({"amount": ingredients_temp[0], "name": ' '.join(ingredients_temp[1 : ])})
@@ -204,6 +210,7 @@ def add_recipe(title):
 
 
 @app.route('/recipes/addRecipesByIngredients', methods=['POST'])
+@cross_origin()
 def add_recipes_by_ingredients():
     ingredients = request.json
 
@@ -230,6 +237,7 @@ def add_recipes_by_ingredients():
 
 
 @app.route('/chat', methods=['POST'])
+@cross_origin()
 def chat():
     prompt = request.json['prompt']
 
