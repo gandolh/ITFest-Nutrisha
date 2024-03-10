@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { ingredients } from './ingredients';
 
 const getRecipesByIngredients = async (ingredients : string[]) : Promise<Recipe[]> => {
     // do post call with axios. in body send ingredients. The url is http://localhost:8080/recipes/byIngredients
@@ -26,8 +27,8 @@ const updateUser = async (user : User) : Promise<User> => {
         });
 }
 
-const GenerateNewRecipes = async () : Promise<Recipe[]> => {
-    return axios.post('http://127.0.0.1:5000/recipes/addRecipesByIngredients')
+const GenerateNewRecipes = async (ingredients : string[]) : Promise<Recipe[]> => {
+    return axios.post('http://127.0.0.1:5000/recipes/addRecipesByIngredients', ingredients)
         .then(response => {
             return response.data;
         })

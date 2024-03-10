@@ -5,7 +5,7 @@ import ChatAssistant from "./ChatAssistant";
 import EmptyCard from "./EmptyCard";
 import React from "react";
 import SelectedRecipeCard from "./SelectedRecipeCard";
-import { getRecipesByIngredients } from "./RecipesApiCallers";
+import { GenerateNewRecipes, getRecipesByIngredients } from "./RecipesApiCallers";
 
 
 
@@ -20,6 +20,12 @@ const Recipes = () => {
         })
     }
 
+    const HandleGenerateRecipes = () => {
+        GenerateNewRecipes(ingredientList).then((_) => {
+            HandleSearchRecipes();
+        });
+      }
+
 
     return (<h1>
         <Container fluid pt={30} className="flex flex-col items-center justify-center" style={{ height: 'calc(100dvh - 60px - var(--app-shell-padding))' }}>
@@ -28,7 +34,9 @@ const Recipes = () => {
                 <RecipesCard
                     OnSearchRecipes={HandleSearchRecipes}
                     recipes={recipes} selectedRecipe={selectedRecipe}
-                    setSelectedRecipe={setSelectedRecipe} />
+                    setSelectedRecipe={setSelectedRecipe} 
+                    onGenerateRecipes={HandleGenerateRecipes}
+                    />
                 {selectedRecipe === null ? <EmptyCard /> : <SelectedRecipeCard selectedRecipe={selectedRecipe} />}
             </SimpleGrid>
             <ChatAssistant />
