@@ -18,7 +18,6 @@ const WelcomeCard = () => {
     background_image = "Evening.webp";
   }
   
-
     return ( 
         <Card
         shadow="sm"
