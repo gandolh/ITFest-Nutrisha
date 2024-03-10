@@ -1,8 +1,6 @@
 package bmg.nutrition_assistant.service;
 
-import bmg.nutrition_assistant.dto.DayPlanDto;
-import bmg.nutrition_assistant.dto.MealPlanDto;
-import bmg.nutrition_assistant.dto.UserDto;
+import bmg.nutrition_assistant.dto.*;
 import bmg.nutrition_assistant.mapper.UserMapper;
 import bmg.nutrition_assistant.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +26,43 @@ public class UserService {
 
     public UserDto getUserByEmail(String email) {
         return UserMapper.toDto(userRepository.findByEmail(email));
+    }
+
+    public Charts getStats(UserDto userDto) {
+        Charts charts = new Charts();
+
+        MealPlanDto mealPlanDto = userDto.getMealPlan();
+
+        DayPlanDto monday = mealPlanDto.getMonday();
+        DayPlanDto tuesday = mealPlanDto.getTuesday();
+        DayPlanDto wednesday = mealPlanDto.getWednesday();
+        DayPlanDto thursday = mealPlanDto.getThursday();
+        DayPlanDto friday = mealPlanDto.getFriday();
+        DayPlanDto saturday = mealPlanDto.getSaturday();
+        DayPlanDto sunday = mealPlanDto.getSunday();
+
+        List<DailyBarChart> dailyBarChart = List.of(
+                new DailyBarChart("Monday", monday.calculateTotalCalories(), monday.calculateTotalProtein(), monday.calculateTotalCarbohydrate(), monday.calculateTotalFat()),
+                new DailyBarChart("Tuesday", tuesday.calculateTotalCalories(), tuesday.calculateTotalProtein(), tuesday.calculateTotalCarbohydrate(), tuesday.calculateTotalFat()),
+                new DailyBarChart("Wednesday", wednesday.calculateTotalCalories(), wednesday.calculateTotalProtein(), wednesday.calculateTotalCarbohydrate(), wednesday.calculateTotalFat()),
+                new DailyBarChart("Thursday", thursday.calculateTotalCalories(), thursday.calculateTotalProtein(), thursday.calculateTotalCarbohydrate(), thursday.calculateTotalFat()),
+                new DailyBarChart("Friday", friday.calculateTotalCalories(), friday.calculateTotalProtein(), friday.calculateTotalCarbohydrate(), friday.calculateTotalFat()),
+                new DailyBarChart("Saturday", saturday.calculateTotalCalories(), saturday.calculateTotalProtein(), saturday.calculateTotalCarbohydrate(), saturday.calculateTotalFat()),
+                new DailyBarChart("Sunday", sunday.calculateTotalCalories(), sunday.calculateTotalProtein(), sunday.calculateTotalCarbohydrate(), sunday.calculateTotalFat())
+        );
+
+        charts.setDailyBarChart(dailyBarChart);
+
+        List<WeeklyPieChart> weeklyPieChart = List.of(
+                new WeeklyPieChart("Calories", dailyBarChart.stream().mapToInt(DailyBarChart::getCalories).sum()),
+                new WeeklyPieChart("Protein", dailyBarChart.stream().mapToInt(DailyBarChart::getProtein).sum()),
+                new WeeklyPieChart("Carbohydrate", dailyBarChart.stream().mapToInt(DailyBarChart::getCarbohydrate).sum()),
+                new WeeklyPieChart("Fat", dailyBarChart.stream().mapToInt(DailyBarChart::getFat).sum())
+        );
+
+        charts.setWeeklyPieChart(weeklyPieChart);
+
+        return charts;
     }
 
     public UserDto saveUser(UserDto userDto) {

@@ -15,4 +15,20 @@ public class DayPlanDto {
     private RecipeDto lunch;
     private String snack2;
     private RecipeDto dinner;
+
+    public int calculateTotalCalories() {
+        return breakfast.getCalories() + lunch.getCalories() + dinner.getCalories();
+    }
+
+    public int calculateTotalProtein() {
+        return breakfast.getProtein() + lunch.getProtein() + dinner.getProtein();
+    }
+
+    public int calculateTotalCarbohydrate() {
+        return breakfast.getCarbohydrate() + lunch.getCarbohydrate() + dinner.getCarbohydrate();
+    }
+
+    public int calculateTotalFat() {
+        return breakfast.getFat() + lunch.getFat() + dinner.getFat();
+    }
 }

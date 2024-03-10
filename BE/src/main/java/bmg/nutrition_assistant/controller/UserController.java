@@ -1,5 +1,6 @@
 package bmg.nutrition_assistant.controller;
 
+import bmg.nutrition_assistant.dto.Charts;
 import bmg.nutrition_assistant.dto.UserDto;
 import bmg.nutrition_assistant.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,11 @@ public class UserController {
         }
 
         return ResponseEntity.ok(userDto);
+    }
+
+    @PostMapping("/getStats")
+    public ResponseEntity<Charts> getStats(@RequestBody UserDto userDto) {
+        return ResponseEntity.ok(userService.getStats(userDto));
     }
 
     @PostMapping
