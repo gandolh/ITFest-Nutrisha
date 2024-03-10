@@ -45,18 +45,19 @@ const RegisterCall = async  (user : User) : Promise<Number> => {
     }
 }
 
-const GoogleLoginCall = async  (email : string , firstName : string, lastName: string) => {
+const GoogleLoginCall = async  (email : string , firstName : string, lastName: string) : Promise<User | null> => {
     // do post call with axios. in body send user. The url is http://localhost:8080/auth/google
-    await axios.post('http://localhost:8080/auth/google', {
-        email, firstName, lastName
-    })
-        .then(response => {
-            console.log(response);
-            return response;
-        })
-        .catch(error => {
-            console.log(error.code);
+    try {
+        const response = await axios.post('http://localhost:8080/auth/google', {
+            email, firstName, lastName
         });
+        console.log(response.data);
+        return response.data as User;
+    } catch (error : any) {
+        console.log(error.code);
+        return null;
+    }
+    
 }
 
 export {

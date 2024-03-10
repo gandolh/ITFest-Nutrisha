@@ -16,6 +16,7 @@ import { GoogleLoginCall, LoginCall } from "../../apiCallers/AuthApiCaller";
 
 import { useGoogleLogin } from "@react-oauth/google";
 import { useAuthContext } from "./AuthContext";
+import { toast } from "react-toastify";
 
 export default function Login() {
 	const form = useForm({
@@ -79,8 +80,14 @@ export default function Login() {
 					}
 				)
 				.then((res) => {
-					console.log(res.data);
-					GoogleLoginCall(res.data.email, res.data.given_name, res.data.family_name);
+					GoogleLoginCall(res.data.email, res.data.given_name, res.data.family_name).then(user => {
+						if(user != null){
+							handleLoginConfirmed(user);
+							navigate("/");
+						} else{
+							toast("Google login failed la salvarea in API.");
+						}
+					});
 				})
 				.catch((err) => console.log(err));
 		}
