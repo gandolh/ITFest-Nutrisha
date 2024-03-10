@@ -7,11 +7,11 @@ public class DayPlanMapper {
     public static DayPlanDto toDto(DayPlan dayPlan) {
         DayPlanDto dayPlanDto = new DayPlanDto();
 
-        dayPlanDto.setBreakfast(dayPlan.getBreakfast());
+        dayPlanDto.setBreakfast(RecipeMapper.toDto(dayPlan.getBreakfast()));
         dayPlanDto.setSnack1(dayPlan.getSnack1());
-        dayPlanDto.setLunch(dayPlan.getLunch());
+        dayPlanDto.setLunch(RecipeMapper.toDto(dayPlan.getLunch()));
         dayPlanDto.setSnack2(dayPlan.getSnack2());
-        dayPlanDto.setDinner(dayPlan.getDinner());
+        dayPlanDto.setDinner(RecipeMapper.toDto(dayPlan.getDinner()));
 
         return dayPlanDto;
     }
@@ -19,11 +19,11 @@ public class DayPlanMapper {
     public static DayPlan toEntity(DayPlanDto dayPlanDto) {
         DayPlan dayPlan = new DayPlan();
 
-        dayPlan.setBreakfast(dayPlanDto.getBreakfast());
+        dayPlan.setBreakfast(RecipeMapper.toEntity(dayPlanDto.getBreakfast()));
         dayPlan.setSnack1(dayPlanDto.getSnack1());
-        dayPlan.setLunch(dayPlanDto.getLunch());
+        dayPlan.setLunch(RecipeMapper.toEntity(dayPlanDto.getLunch()));
         dayPlan.setSnack2(dayPlanDto.getSnack2());
-        dayPlan.setDinner(dayPlanDto.getDinner());
+        dayPlan.setDinner(RecipeMapper.toEntity(dayPlanDto.getDinner()));
 
         return dayPlan;
     }

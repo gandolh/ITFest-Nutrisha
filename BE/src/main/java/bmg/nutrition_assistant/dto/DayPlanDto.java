@@ -10,9 +10,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DayPlanDto {
-    private String breakfast;
+    private RecipeDto breakfast;
     private String snack1;
-    private String lunch;
+    private RecipeDto lunch;
     private String snack2;
-    private String dinner;
+    private RecipeDto dinner;
 }
