@@ -60,7 +60,7 @@ const SelectedRecipeCard = ({ selectedRecipe }: SelectedRecipeCardProps) => {
                 </div>
             </Card>
             <Modal opened={opened} onClose={close} title="Meal Planner" size={"lg"} centered>
-                <MealPlanTable selectedRecipe={selectedRecipe} />
+                <MealPlanTable selectedRecipe={selectedRecipe} close={close}/>
 
             </Modal>
         </>
@@ -73,9 +73,10 @@ const meals: string[] = ['Breakfast', 'Lunch', 'Dinner'];
 
 type MealPlanTableProps = {
     selectedRecipe: Recipe;
+    close: () => void;
 }
 
-const MealPlanTable = ({ selectedRecipe }: MealPlanTableProps) => {
+const MealPlanTable = ({ selectedRecipe, close }: MealPlanTableProps) => {
 
 
     const { curentUser, setCurentUser } = useAuthContext();
@@ -131,6 +132,8 @@ const MealPlanTable = ({ selectedRecipe }: MealPlanTableProps) => {
         updateUser(newUser).then((user) => {
             if (user) {
                 setCurentUser(user);
+                window.localStorage.setItem("authenticatedUser", JSON.stringify(user));
+                close();
             } else {
                 console.error("User not updated");
             }
