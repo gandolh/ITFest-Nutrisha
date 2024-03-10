@@ -21,6 +21,6 @@
   
   }
   [data-mantine-color-scheme] .link[data-active] {
-    background-color: var(--mantine-color-blue-filled);
+    background-color: var(--mantine-color-indigo-filled);
     color: var(--mantine-color-white);
   }
