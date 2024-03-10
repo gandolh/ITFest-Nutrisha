@@ -4,6 +4,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { useAuthContext } from "../auth/AuthContext";
 import { useEffect, useState } from "react";
 import { toTitleCase } from "../../utils/helpers";
+import { updateUser } from "./RecipesApiCallers";
 
 type SelectedRecipeCardProps = {
     selectedRecipe: Recipe;
@@ -127,7 +128,14 @@ const MealPlanTable = ({ selectedRecipe }: MealPlanTableProps) => {
         }
         const newUser = {...curentUser!, mealPlan: newMealPlan};
         setCurentUser(newUser);
-        
+        updateUser(newUser).then((user) => {
+            if (user) {
+                setCurentUser(user);
+            } else {
+                console.error("User not updated");
+            }
+        });
+
 
     }
 
