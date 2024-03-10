@@ -22,7 +22,7 @@ const WelcomeCard = () => {
         shadow="sm"
         padding="xl"
         component="div"
-        className='bg-no-repeat bg-cover bg-center relative'
+        className='bg-no-repeat bg-cover bg-left relative'
         style={{backgroundImage: '  linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3)),' +
         `url("${background_image}")`}}
       >
