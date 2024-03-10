@@ -17,9 +17,9 @@ type MealPlan = {
 
 
 type MealPlanDay = {
-    breakfast: string;
+    breakfast: Recipe;
     lunch: string;
-    dinner: string;
+    dinner: Recipe;
     snack1: string;
-    snack2: string;
+    snack2: Recipe;
 }

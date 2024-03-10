@@ -34,22 +34,26 @@ export default function Login() {
 	});
 
 	const navigate = useNavigate();
-	const {setCurentUser} = useAuthContext();
+	const { setCurentUser } = useAuthContext();
 
 	const handleLoginConfirmed = (user: User) => {
 		window.localStorage.setItem("authenticatedUser", JSON.stringify(user));
 		setCurentUser(user);
-	}
+	};
 
-	const HandleLogin =  () => {
+	const HandleLogin = () => {
 		const output = form.validate();
 		if (output.hasErrors == true) return;
-		 LoginCall(form.values.email, form.values.password, handleLoginConfirmed).then(ok => {
-			console.log(ok)
+		LoginCall(
+			form.values.email,
+			form.values.password,
+			handleLoginConfirmed
+		).then((ok) => {
+			console.log(ok);
 			if (ok != -1) {
-			  navigate("/");
+				navigate("/");
 			}
-		  });
+		});
 	};
 
 	// Google Login
@@ -80,11 +84,15 @@ export default function Login() {
 					}
 				)
 				.then((res) => {
-					GoogleLoginCall(res.data.email, res.data.given_name, res.data.family_name).then(user => {
-						if(user != null){
+					GoogleLoginCall(
+						res.data.email,
+						res.data.given_name,
+						res.data.family_name
+					).then((user) => {
+						if (user != null) {
 							handleLoginConfirmed(user);
 							navigate("/");
-						} else{
+						} else {
 							toast("Google login failed la salvarea in API.");
 						}
 					});
@@ -95,62 +103,94 @@ export default function Login() {
 
 	return (
 		<div className={classes.wrapper}>
-				<Paper className={classes.form} radius={0} p={30}>
-					<Title
-						order={2}
-						className={classes.title}
-						ta="center"
-						mt="md"
-						mb={50}
-					>
-						Welcome back to Nutritisha!
-					</Title>
+			<Paper className={classes.form} radius={0} p={30}>
+				<Title
+					order={2}
+					className={classes.title}
+					ta="center"
+					mt="md"
+					mb={50}
+				>
+					Welcome back to Nutrisha!
+				</Title>
 
-					<TextInput
-						label="Email address"
-						placeholder="hello@gmail.com"
-						size="md"
-						{...form.getInputProps("email")}
-					/>
-					<PasswordInput
-						label="Password"
-						placeholder="Your password"
-						mt="md"
-						size="md"
-						{...form.getInputProps("password")}
-					/>
-					<Checkbox
-						label="Keep me logged in"
-						mt="xl"
-						size="md"
-						{...form.getInputProps("loggedIn")}
-					/>
-					<Button
-						fullWidth
-						mt="xl"
-						size="md"
-						onClick={HandleLogin}
-						type="button"
+				<TextInput
+					label="Email address"
+					placeholder="hello@gmail.com"
+					size="md"
+					{...form.getInputProps("email")}
+				/>
+				<PasswordInput
+					label="Password"
+					placeholder="Your password"
+					mt="md"
+					size="md"
+					{...form.getInputProps("password")}
+				/>
+				<Checkbox
+					label="Keep me logged in"
+					mt="xl"
+					size="md"
+					{...form.getInputProps("loggedIn")}
+				/>
+				<Button
+					fullWidth
+					mt="xl"
+					size="md"
+					onClick={HandleLogin}
+					type="button"
+				>
+					Login
+				</Button>
+
+				<Text ta="center" mt="md">
+					Don&apos;t have an account?{" "}
+					<Link
+						to="/register"
+						style={{
+							fontWeight: "700",
+							color: "var(--mantine-color-anchor)",
+						}}
 					>
-						Login
-					</Button>
-					<Button
-						fullWidth
-						mt="xl"
-						size="md"
+						Register
+					</Link>
+				</Text>
+
+				<div
+					style={{
+						display: "flex",
+						justifyContent: "center",
+						alignItems: "center",
+						width: "100%",
+						height: "40px",
+						marginTop: "40px",
+					}}
+				>
+					<div
+						style={{
+							display: "flex",
+							justifyContent: "space-evenly",
+							alignItems: "center",
+							width: "200px",
+							height: "40px",
+							backgroundColor: "#ebebeb",
+							color: "black",
+							borderRadius: "20px",
+							cursor: "pointer",
+						}}
 						onClick={HandleGoogleLogin}
-						type="button"
 					>
+						<img
+							src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png"
+							style={{
+								width: "30px",
+								height: "30px",
+							}}
+						/>
 						Sign in with Google
-					</Button>
-
-					<Text ta="center" mt="md">
-						Don&apos;t have an account?{" "}
-						<Link to="/register" style={{fontWeight:'700',color: 'var(--mantine-color-anchor)'}}>
-							Register
-						</Link>
-					</Text>
-				</Paper>
+					</div>
+				</div>
+			</Paper>
 		</div>
 	);
 }

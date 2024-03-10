@@ -17,7 +17,7 @@ const PowerButton = ({ authenticatedUser }: PowerButtonProps) => {
     const HandleLogout = () => {
         localStorage.removeItem('authenticatedUser');
         setCurentUser(null);
-        navigate('/');
+        navigate('/login');
     }
 
     return (

@@ -19,7 +19,7 @@ const AuthGroupMobile = ({ authenticatedUser }: AuthGroupMobileProps) => {
     const HandleLogout = () => {
         localStorage.removeItem('authenticatedUser');
         setCurentUser(null);
-        navigate('/');
+        navigate('/login');
     }
 
     return (
