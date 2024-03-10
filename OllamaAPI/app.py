@@ -207,6 +207,9 @@ def add_recipe(title):
 def add_recipes_by_ingredients():
     ingredients = request.json
 
+    if len(ingredients) < 1:
+        return "Please provide at least one ingredient."
+
     prompt = "Give me 3 recipe titles that contain the following ingredients: " + ' '.join(ingredients) + "."
 
     ollama_response = ollama.generate(model=ollama_model, prompt=prompt)
