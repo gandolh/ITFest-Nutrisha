@@ -65,7 +65,7 @@ public class UserService {
         return charts;
     }
 
-    public UserDto saveUser(UserDto userDto) {
+    public UserDto saveNewUser(UserDto userDto) {
         MealPlanDto mealPlanDto = new MealPlanDto();
 
         mealPlanDto.setMonday(new DayPlanDto(null, null, null, null, null));
@@ -78,6 +78,10 @@ public class UserService {
 
         userDto.setMealPlan(mealPlanDto);
 
+        return UserMapper.toDto(userRepository.save(UserMapper.toEntity(userDto)));
+    }
+
+    public UserDto saveUser(UserDto userDto) {
         return UserMapper.toDto(userRepository.save(UserMapper.toEntity(userDto)));
     }
 

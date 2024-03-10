@@ -80,7 +80,7 @@ const ChatBox = ({ handleToggleChat, messages, HandleSendMessage }: ChatBoxProps
                 return (
                     <div key={"message_" + index} className={"flex " + align}>
                         {icon}
-                        <div className={`${color} p-2 rounded-lg`}>
+                        <div className={`${color} p-2 rounded-lg max-w-72`}>
                             <p>
                                 {message.isLoading === false ? message.text : "Loading..."}
                             </p>

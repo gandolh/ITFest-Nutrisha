@@ -40,7 +40,7 @@ const GenerateNewRecipes = async (ingredients : string[]) : Promise<Recipe[]> =>
 }
 
 const ChatWithBob = async (prompt : string) : Promise<string> => {
-    return axios.post('http://localhost:5000/chat', { "prompt": prompt })
+    return axios.post('http://127.0.0.1:5000/chat', { "prompt": prompt })
         .then(response => {
             return response.data;
         })
