@@ -17,18 +17,58 @@ public class DayPlanDto {
     private RecipeDto dinner;
 
     public int calculateTotalCalories() {
-        return breakfast.getCalories() + lunch.getCalories() + dinner.getCalories();
+        int totalCalories = 0;
+        if (breakfast != null) {
+            totalCalories += breakfast.getCalories();
+        }
+        if (lunch != null) {
+            totalCalories += lunch.getCalories();
+        }
+        if (dinner != null) {
+            totalCalories += dinner.getCalories();
+        }
+        return totalCalories;
     }
 
     public int calculateTotalProtein() {
-        return breakfast.getProtein() + lunch.getProtein() + dinner.getProtein();
+        int totalProtein = 0;
+        if (breakfast != null) {
+            totalProtein += breakfast.getProtein();
+        }
+        if (lunch != null) {
+            totalProtein += lunch.getProtein();
+        }
+        if (dinner != null) {
+            totalProtein += dinner.getProtein();
+        }
+        return totalProtein;
     }
 
     public int calculateTotalCarbohydrate() {
-        return breakfast.getCarbohydrate() + lunch.getCarbohydrate() + dinner.getCarbohydrate();
+        int totalCarbohydrate = 0;
+        if (breakfast != null) {
+            totalCarbohydrate += breakfast.getCarbohydrate();
+        }
+        if (lunch != null) {
+            totalCarbohydrate += lunch.getCarbohydrate();
+        }
+        if (dinner != null) {
+            totalCarbohydrate += dinner.getCarbohydrate();
+        }
+        return totalCarbohydrate;
     }
 
     public int calculateTotalFat() {
-        return breakfast.getFat() + lunch.getFat() + dinner.getFat();
+        int totalFat = 0;
+        if (breakfast != null) {
+            totalFat += breakfast.getFat();
+        }
+        if (lunch != null) {
+            totalFat += lunch.getFat();
+        }
+        if (dinner != null) {
+            totalFat += dinner.getFat();
+        }
+        return totalFat;
     }
 }
