@@ -1,4 +1,4 @@
-import { Button, TextInput, Title } from "@mantine/core";
+import { Button, TextInput, Title, useMantineColorScheme } from "@mantine/core";
 import { IconMessageCircle2, IconMinus, IconRobotFace, IconSend } from "@tabler/icons-react";
 import React from "react";
 
@@ -20,7 +20,7 @@ const ChatAssistant = () => {
     return (
         <div className="absolute bottom-[25px] right-[25px]">
             {!toggleChat && (<div
-                className="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center hover:cursor-pointer"
+                className="w-20 h-20 bg-indigo-500 rounded-full flex items-center justify-center hover:cursor-pointer"
                 onClick={handleToggleChat}>
                 <IconMessageCircle2 size={32} color="white" />
             </div>)
@@ -37,19 +37,27 @@ type ChatBoxProps = {
 }
 
 const ChatBox = ({ handleToggleChat, messages }: ChatBoxProps) => {
-    return (<div className="w-[380px] h-[600px] bg-[#CCC] rounded-lg flex flex-col items-center justify-center">
-        <div className="flex w-full items-center mt-2 pb-2 border-b-2 border-white">
+    const { colorScheme } = useMantineColorScheme();
+    const chatBg = colorScheme === 'light' 
+                    ? 'w-[380px] h-[600px] bg-gray-100 rounded-lg flex flex-col items-center justify-center' 
+                    : 'w-[380px] h-[600px] bg-[#222] rounded-lg flex flex-col items-center justify-center';
+    return (<div className={chatBg}>
+        <div className={`flex w-full items-center mt-2 pb-2 border-b-2 ${colorScheme === 'light' ? "border-white" : " border-gray-400"}`}>
             <div className="grow flex justify-center">
-                <Title order={4}>Ask Bob about selected recipe</Title>
+                <Title order={4} c={colorScheme === 'light' ? "black" : "white"}>Ask Bob about selected recipe</Title>
             </div>
-            <p className="font-bold pr-4 hover:cursor-pointer" onClick={handleToggleChat}> <IconMinus /> </p>
+            <p className="font-bold pr-4 hover:cursor-pointer" onClick={handleToggleChat} color={ colorScheme === 'light' ? "black" : "white"}> <IconMinus /> </p>
         </div>
 
         <div className="grow pt-2 gap-2 flex flex-col overflow-auto" >
         {messages.map((message, index) => {
             const align = message.side === 'left' ? 'justify-start' : 'justify-end';
-            const color = message.side === 'left' ? 'bg-white' : 'bg-[#0AF]';
-            const icon = message.side === 'left' ? <IconRobotFace size={40} color="black" className="bg-white flex rounded-full items-center justify-center p-[4px] mr-2"/> :<></>;
+            const color = colorScheme === 'light' 
+            ? message.side === 'left' ? 'bg-gray-50' : 'bg-indigo-400'
+            : message.side === 'left' ? 'bg-gray-700' : 'bg-indigo-600';
+            const icon = message.side === 'left' 
+            ? <IconRobotFace size={40} color="black" className="bg-white flex rounded-full items-center justify-center p-[4px] mr-2"/> 
+            : <></>;
 
             return (
             <div key={"message_" + index} className={"flex " + align}>
@@ -62,9 +70,9 @@ const ChatBox = ({ handleToggleChat, messages }: ChatBoxProps) => {
             </div>
         )})}    
         </div>
-        <div className="flex w-full border-t-2 pt-4 border-white">
+        <div className={`flex w-full border-t-2 pt-4 ${colorScheme === 'light' ? "border-white" : " border-gray-400"}`}>
             <TextInput className="grow mb-4 ml-4" />
-            <Button variant="dark" className="mb-4 mr-4 ml-2"><IconSend/></Button>
+            <Button variant="dark" className="mb-4 mr-4 ml-2 bg-indigo-500"><IconSend/></Button>
         </div>
     </div>);
 }

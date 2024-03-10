@@ -1,5 +1,6 @@
 import { Badge, Button, Card, Divider, List, Popover, SimpleGrid, Title } from "@mantine/core";
 import { IconCalendar } from "@tabler/icons-react";
+import { toTitleCase } from "../../utils/helpers";
 
 type SelectedRecipeCardProps = {
     selectedRecipe: Recipe;
@@ -17,7 +18,7 @@ const SelectedRecipeCard = ({ selectedRecipe }: SelectedRecipeCardProps) => {
             padding="xl"
         >
             <div className="flex justify-between items-center align-middle">
-                <Title order={3}> {selectedRecipe?.title}</Title>
+                <Title order={3} className="w-48"> {toTitleCase(selectedRecipe?.title.toLowerCase())}</Title>
                 <Popover trapFocus position="bottom" withArrow shadow="md">
                     <Popover.Target>
                         <Button onClick={ToggleModalSelectDate}> <IconCalendar /> Add </Button>
@@ -49,15 +50,15 @@ const SelectedRecipeCard = ({ selectedRecipe }: SelectedRecipeCardProps) => {
                         <p>{selectedRecipe.carbohydrate}</p>
                     </div>
                 </SimpleGrid>
-                <Title order={4}>ingredients</Title>
-                <div>{selectedRecipe.ingredients.map((el, index) => (
-                    <p key={"recipeIngredients" + index}>{el.name} - {el.amount}</p>
-                ))}</div>
-                <Title order={4}>steps</Title>
-                <List type="ordered" withPadding>
-                    <div>{selectedRecipe.steps.map((el, index) => (
+                <Title order={4}>Ingredients</Title>
+                <List className="list-disc w-64">{selectedRecipe.ingredients.map((el, index) => (
+                    <List.Item key={"recipeIngredients" + index}>{el.amount} {el.name}</List.Item>
+                ))}</List>
+                <Title order={4}>Steps</Title>
+                <List type="ordered" className="list-decimal w-64">
+                    {selectedRecipe.steps.map((el, index) => (
                         <List.Item key={"recipeDesc_" + index}>{el.description}</List.Item>
-                    ))}</div>
+                    ))}
                 </List>
             </div>
         </Card>

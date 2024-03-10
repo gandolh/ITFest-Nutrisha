@@ -1,6 +1,7 @@
 import { Autocomplete, Button, Card, Divider, Group, Stack, Title } from "@mantine/core";
 import { ingredients } from "./ingredients";
 import React from "react";
+import { IconMinus, IconPlus } from "@tabler/icons-react";
 
 type IngredientListCardProps = {
     ingredientList: string[];
@@ -47,11 +48,11 @@ const IngredientListCard = ({ingredientList,setIngredientList} : IngredientListC
                 <Divider my="md" />
                 </div>
                 <Stack className="grow">
-                    <div >
+                    <div>
                         {ingredientList.map((ingredient, index) => (
-                            <div key={index} className="flex justify-between">
+                            <div key={index} className="flex justify-between mb-2">
                                 <p>{ingredient}</p>
-                                <Button variant="light" color="red" onClick={HandleRemoveIngredient}>-</Button>
+                                <Button variant="light" color="red" onClick={HandleRemoveIngredient}><IconMinus size={18}></IconMinus></Button>
                                 </div>
                         ))}
                     </div>
@@ -63,13 +64,13 @@ const IngredientListCard = ({ingredientList,setIngredientList} : IngredientListC
                         value={ingredient}
                         onChange={handleChange}
                         onKeyDown={handleKeyDown}
-                        className="grow "
+                        className="grow mr-2"
                         label=""
                         placeholder="Enter ingredient"
                         data={ingredients}
                         limit={5}
                         />
-                    <Button maw={100} variant="light" color="blue" onClick={HandleAdd}>+</Button>
+                    <Button maw={60} variant="light" color="indigo" onClick={HandleAdd}><IconPlus size={24}></IconPlus></Button>
                 </Group>
 
 

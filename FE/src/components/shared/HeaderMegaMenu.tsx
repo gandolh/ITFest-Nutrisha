@@ -8,7 +8,8 @@ import {
   rem,
   Stack,
   useMantineColorScheme,
-  Image
+  Image,
+  Text
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { Link } from "react-router-dom";
@@ -45,9 +46,18 @@ export function HeaderMegaMenu({ NavLinks, handleChangeActive }: HeaderMegaMenuP
     <Box >
       <header className={classes.header}>
         <Group justify="space-between" h="100%">
-          {colorScheme === 'light' ? 
-          (<Image w={30} h={30} src="NutrishaLogoDark.webp" alt="Mantine logo" />)
-          : (<Image w={30} h={30} src="NutrishaLogoLight.webp" alt="Mantine logo" />) }
+          <Group gap={8}>
+            <Image w={30} h={30} src="NutrishaLogoFin.webp" alt="Mantine logo" />
+            <Text
+              size="xl"
+              fw={900}
+              variant="gradient"
+              gradient={{ from: 'pink', to: 'violet', deg: 90 }}
+              style={{ marginTop: 8}}
+            >
+              Nutrisha
+            </Text>
+          </Group>
 
           <Group h="100%" gap={0} visibleFrom="sm">
             {NavLinks.map((link) => (
