@@ -14,11 +14,13 @@ const getRecipesByIngredients = async (ingredients : string[]) : Promise<Recipe[
 }
 
 const updateUser = async (user : User) : Promise<User> => {
-    return axios.put(`http://localhost:8080/users?id=${user.id}`, user)
+    console.log(user);
+    return axios.put(`http://localhost:8080/users/${user.id}`, user)
         .then(response => {
             return response.data;
         })
-        .catch(_ => {
+        .catch(err => {
+            console.log(err);
             toast("User not found");
             return null;
         });
