@@ -4,6 +4,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { useAuthContext } from "../auth/AuthContext";
 import { useEffect, useState } from "react";
 import { toTitleCase } from "../../utils/helpers";
+import { updateUser } from "./RecipesApiCallers";
 
 type SelectedRecipeCardProps = {
     selectedRecipe: Recipe;
@@ -58,8 +59,8 @@ const SelectedRecipeCard = ({ selectedRecipe }: SelectedRecipeCardProps) => {
                     </List>
                 </div>
             </Card>
-            <Modal opened={opened} onClose={close} title="Meal Planner" size={"xl"} centered>
-                <MealPlanTable selectedRecipe={selectedRecipe}/>
+            <Modal opened={opened} onClose={close} title="Meal Planner" size={"lg"} centered>
+                <MealPlanTable selectedRecipe={selectedRecipe} />
 
             </Modal>
         </>
@@ -67,100 +68,110 @@ const SelectedRecipeCard = ({ selectedRecipe }: SelectedRecipeCardProps) => {
 }
 
 
+const days: string[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const meals: string[] = ['Breakfast', 'Lunch', 'Dinner'];
+
 type MealPlanTableProps = {
     selectedRecipe: Recipe;
 }
 
-enum MealSlot {
-    Nothing, 
-    SameAsCurrent,
-    Other
-}
+const MealPlanTable = ({ selectedRecipe }: MealPlanTableProps) => {
 
-const MealPlanTable = ({selectedRecipe} : MealPlanTableProps) => {
-    const {curentUser} = useAuthContext();
-    const [mealPlan, setMealPlan] = useState<MealPlan | null>();
+
+    const { curentUser, setCurentUser } = useAuthContext();
+    const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>({});
+
     useEffect(() => {
-        setMealPlan(curentUser?.mealPlan);
+        const newCheckedItems = { ...checkedItems };
+        if (curentUser?.mealPlan) {
+            const days = Object.keys(curentUser.mealPlan);
+            const meals = Object.keys(curentUser.mealPlan[days[0]]);
+            days.forEach(day => {
+                meals.forEach(meal => {
+                    //@ts-ignore
+                    const recipe = curentUser.mealPlan[day][meal];
+                    if (recipe === null || recipe === undefined)
+                        newCheckedItems[`${meal}-${day}`] = false;
+                    else if (recipe === selectedRecipe)
+                        newCheckedItems[`${meal}-${day}`] = false;
+                    else {
+                        // is other
+                        newCheckedItems[`${meal}-${day}`] = true;
+                    }
+                });
+            });
+        }
+
+        setCheckedItems(newCheckedItems);
     }, [curentUser]);
-  
-    const getStatus = (day : string, meal : string) : MealSlot => {
+
+    const handleChange = (meal: string, day: string) => {
+        const newCheckedItems = { ...checkedItems };
+        newCheckedItems[`${meal}-${day}`] = !checkedItems[`${meal}-${day}`];
+        setCheckedItems(newCheckedItems);
+    };
+    
+    function deepCopy(obj : any) {
+        return JSON.parse(JSON.stringify(obj));
+      }
+      
+
+    const HandlePrepareMeal = () => {
+        const selectedDays = Object.keys(checkedItems).filter(key => checkedItems[key]);
+        const splittedArr = selectedDays.map(day => day.split("-"));
         //@ts-ignore
-            const valueOnMeal = mealPlan[day.toLowerCase()][meal.toLowerCase()];
-            const elementExists = valueOnMeal  === null ? false : true;
-            if(!elementExists) return MealSlot.Nothing;
-            else if(valueOnMeal === selectedRecipe) return MealSlot.SameAsCurrent;
-            else return MealSlot.Other;
-
-    }
-
-    const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-    const meals = ['Breakfast', 'Lunch', 'Dinner'];
-    const HandleAddToMeal = () => {
-        console.log("Add to meal plan")        
-    }
-
-    const handleChange = (day : string, meal : string, slot: MealSlot) => {
-        const newMealPlan = {...mealPlan};
-        if(slot === MealSlot.Nothing || slot === MealSlot.Other) {
-            //@ts-ignore
-            newMealPlan[day.toLowerCase()][meal.toLowerCase()] = selectedRecipe;
+        const newMealPlan = deepCopy(curentUser.mealPlan);
+        for( let [meal,day] of splittedArr){
+            day = day.toLowerCase();
+            meal = meal.toLowerCase();
+            newMealPlan[day][meal] = selectedRecipe;
         }
-        else {
-            //@ts-ignore
-            newMealPlan[day.toLowerCase()][meal.toLowerCase()] = null;
-        }
-        setMealPlan(newMealPlan);
+        const newUser = {...curentUser!, mealPlan: newMealPlan};
+        setCurentUser(newUser);
+        updateUser(newUser).then((user) => {
+            if (user) {
+                setCurentUser(user);
+            } else {
+                console.error("User not updated");
+            }
+        });
+
+
     }
 
-    const rows = meals.map((meal) => (
-        <Table.Tr key={"tableMeal_" + meal}>
-            <Table.Td>{meal}</Table.Td>
-            {days.map((day, index) => (
-                <Table.Td key={"tableMeal_" + meal + "_day_" + day + "_" + index}>
-                    <CheckBoxes status={getStatus(day,meal)} handleChange={handleChange} day={day} meal={meal} />
-                </Table.Td>
-            ))}
-        </Table.Tr>
-    ));
     return (
         <>
-        <Table>
-            <Table.Thead>
-                <Table.Tr>
-                    <Table.Th></Table.Th>
-                    {days.map((day, index) => (
-                        <Table.Th key={`tableday_${day}_${index}`}>{day}</Table.Th>
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        {days.map(day => (
+                            <th key={day}>{day}</th>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {meals.map(meal => (
+                        <tr key={meal}>
+                            <td>{meal}</td>
+                            {days.map(day => (
+                                <td key={`${meal}-${day}`}>
+                                    <input
+                                        type="checkbox"
+                                        checked={checkedItems[`${meal}-${day}`] || false}
+                                        onChange={() => handleChange(meal, day)}
+                                    />
+                                </td>
+                            ))}
+                        </tr>
                     ))}
-                </Table.Tr>
-            </Table.Thead>
-            <Table.Tbody>
-                {rows}
-            </Table.Tbody>
-        </Table>
-        <Button mt={10} variant="filled" style={{ width: '100%' }} onClick={HandleAddToMeal}>Add to meal plan</Button>
+                </tbody>
+            </table>
+            <Button fullWidth variant="filled" color="blue" mt={6} onClick={() => HandlePrepareMeal()}>Save</Button>
         </>
     );
 };
 
 
-type CheckboxesProps = {
-    status: MealSlot;
-    handleChange: (day: string, meal: string, slot: MealSlot) => void;
-    day: string;
-    meal: string;
-}
-
-const CheckBoxes = ({status, handleChange,day, meal }: CheckboxesProps) => {
-
-
-    return (   
-        <>
-        { status === MealSlot.Nothing ? <Checkbox checked={false} onChange={()=> handleChange(day,meal, MealSlot.Nothing)} /> : null}
-    {status === MealSlot.Other ? <Checkbox color="violet" checked={true} onChange={()=> handleChange(day,meal, MealSlot.Other)}/> : null}
-    {status === MealSlot.SameAsCurrent ? <Checkbox  checked={true} onChange={()=> handleChange(day,meal, MealSlot.SameAsCurrent)}/> : null}
-        </>
-     )
-}
 
 export default SelectedRecipeCard;
