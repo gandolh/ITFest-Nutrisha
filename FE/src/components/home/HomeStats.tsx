@@ -8,11 +8,14 @@ import { useEffect, useState } from 'react';
 
 const HomeStats = () => {
 
-  const {curentUser} = useAuthContext();
+  const { curentUser } = useAuthContext();
   const [stats, setStats] = useState<any>();
   useEffect(() => {
-    if(curentUser !== null)
-     setStats(GetStats(curentUser));
+    if (curentUser !== null) {
+      const stats = GetStats(curentUser);
+      setStats(stats);
+    }
+
   }, [curentUser]);
 
 
@@ -21,25 +24,26 @@ const HomeStats = () => {
       shadow="sm"
       padding="xl"
     >
-        <Title order={1}>
-          Home Stats
-        </Title>
-        <Divider my="md" />
-        <Stack align='center' >
+      <Title order={1}>
+        Home Stats
+      </Title>
+      <Divider my="md" />
+      <Stack align='center' >
         <PieChart withLabelsLine withTooltip labelsPosition="inside"
-         labelsType="percent" withLabels data={dataPieChart} />
+          labelsType="percent" withLabels data={stats?.weeklyPieChart ?? []} />
         <BarChart
           h={300}
-          data={dataBarChart}
+          data={stats?.dailyBarChart ?? []}
           dataKey="month"
           withLegend
           series={[
-            { name: 'Proteine', color: 'violet.6' },
-            { name: 'Glucide', color: 'blue.6' },
-            { name: 'Lipide', color: 'teal.6' },
+            { name: 'calories', color: 'violet.6' },
+            { name: 'carbohydrate', color: 'blue.6' },
+            { name: 'protein', color: 'teal.6' },
+            { name: 'fat', color: 'pink.6' },
           ]}
-          />
-          </Stack>
+        />
+      </Stack>
 
 
 
