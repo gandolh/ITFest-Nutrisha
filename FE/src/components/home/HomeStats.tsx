@@ -43,10 +43,17 @@ type StackChartsProps = {
 }
 
 const StackCharts = ({stats} : StackChartsProps) => {
+
+  let colors = ['violet.6', 'blue.6', 'teal.6', 'pink.6'];
+
+  stats.weeklyPieChart = stats.weeklyPieChart.map((el: any, index: number) => {
+    return { ...el, color: colors[index] }
+  });
+
   return (
     <Stack align='center' >
       <PieChart withLabelsLine withTooltip labelsPosition="inside"
-        labelsType="percent" withLabels data={stats.weeklyPieChart} />
+        labelsType="percent" withLabels data={stats.weeklyPieChart}/>
       <BarChart
         h={300}
         data={stats.dailyBarChart}
