@@ -26,8 +26,20 @@ const updateUser = async (user : User) : Promise<User> => {
         });
 }
 
+const GenerateNewRecipes = async () : Promise<Recipe[]> => {
+    return axios.post('http://127.0.0.1:5000/recipes/addRecipesByIngredients')
+        .then(response => {
+            return response.data;
+        })
+        .catch(_ => {
+            toast("Generation wasn't possible");
+            return [];
+        });
+}
+
 
 export {
     getRecipesByIngredients,
-    updateUser
+    updateUser,
+    GenerateNewRecipes
 }

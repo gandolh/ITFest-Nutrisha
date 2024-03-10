@@ -172,6 +172,4 @@ const MealPlanTable = ({ selectedRecipe }: MealPlanTableProps) => {
     );
 };
 
-
-
 export default SelectedRecipeCard;
