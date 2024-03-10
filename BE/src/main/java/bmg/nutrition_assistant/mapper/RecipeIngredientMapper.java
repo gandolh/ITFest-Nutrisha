@@ -5,6 +5,10 @@ import bmg.nutrition_assistant.entity.RecipeIngredient;
 
 public class RecipeIngredientMapper {
     public static RecipeIngredientDto toDto(RecipeIngredient recipeIngredient) {
+        if (recipeIngredient == null) {
+            return null;
+        }
+
         RecipeIngredientDto recipeIngredientDto = new RecipeIngredientDto();
 
         recipeIngredientDto.setAmount(recipeIngredient.getAmount());
@@ -14,6 +18,10 @@ public class RecipeIngredientMapper {
     }
 
     public static RecipeIngredient toEntity(RecipeIngredientDto recipeIngredientDto) {
+        if (recipeIngredientDto == null) {
+            return null;
+        }
+
         RecipeIngredient recipeIngredient = new RecipeIngredient();
 
         recipeIngredient.setAmount(recipeIngredientDto.getAmount());

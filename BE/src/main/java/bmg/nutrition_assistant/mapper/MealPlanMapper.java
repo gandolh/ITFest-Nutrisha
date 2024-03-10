@@ -5,6 +5,10 @@ import bmg.nutrition_assistant.entity.MealPlan;
 
 public class MealPlanMapper {
     public static MealPlanDto toDto(MealPlan mealPlan) {
+        if (mealPlan == null) {
+            return null;
+        }
+
         MealPlanDto mealPlanDto = new MealPlanDto();
 
         mealPlanDto.setMonday(DayPlanMapper.toDto(mealPlan.getMonday()));
@@ -19,6 +23,10 @@ public class MealPlanMapper {
     }
 
     public static MealPlan toEntity(MealPlanDto mealPlanDto) {
+        if (mealPlanDto == null) {
+            return null;
+        }
+
         MealPlan mealPlan = new MealPlan();
 
         mealPlan.setMonday(DayPlanMapper.toEntity(mealPlanDto.getMonday()));

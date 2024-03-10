@@ -5,6 +5,10 @@ import bmg.nutrition_assistant.entity.RecipeStep;
 
 public class RecipeStepMapper {
     public static RecipeStepDto toDto(RecipeStep recipeStep) {
+        if (recipeStep == null) {
+            return null;
+        }
+
         RecipeStepDto recipeStepDto = new RecipeStepDto();
 
         recipeStepDto.setOrder(recipeStep.getOrder());
@@ -14,6 +18,10 @@ public class RecipeStepMapper {
     }
 
     public static RecipeStep toEntity(RecipeStepDto recipeStepDto) {
+        if (recipeStepDto == null) {
+            return null;
+        }
+
         RecipeStep recipeStep = new RecipeStep();
 
         recipeStep.setOrder(recipeStepDto.getOrder());

@@ -5,6 +5,10 @@ import bmg.nutrition_assistant.entity.Recipe;
 
 public class RecipeMapper {
     public static RecipeDto toDto(Recipe recipe) {
+        if (recipe == null) {
+            return null;
+        }
+
         RecipeDto recipeDto = new RecipeDto();
 
         recipeDto.setId(recipe.getId());
@@ -22,6 +26,10 @@ public class RecipeMapper {
     }
 
     public static Recipe toEntity(RecipeDto recipeDto) {
+        if (recipeDto == null) {
+            return null;
+        }
+
         Recipe recipe = new Recipe();
 
         recipe.setId(recipeDto.getId());
