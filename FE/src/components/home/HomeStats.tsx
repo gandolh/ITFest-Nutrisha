@@ -12,8 +12,10 @@ const HomeStats = () => {
   const [stats, setStats] = useState<any>();
   useEffect(() => {
     if (curentUser !== null) {
-      const stats = GetStats(curentUser);
-      setStats(stats);
+      GetStats(curentUser).then(stats => {
+        console.log(stats);
+        setStats(stats);
+      });
     }
 
   }, [curentUser]);
@@ -28,23 +30,7 @@ const HomeStats = () => {
         Home Stats
       </Title>
       <Divider my="md" />
-      <Stack align='center' >
-        <PieChart withLabelsLine withTooltip labelsPosition="inside"
-          labelsType="percent" withLabels data={stats?.weeklyPieChart ?? []} />
-        <BarChart
-          h={300}
-          data={stats?.dailyBarChart ?? []}
-          dataKey="month"
-          withLegend
-          series={[
-            { name: 'calories', color: 'violet.6' },
-            { name: 'carbohydrate', color: 'blue.6' },
-            { name: 'protein', color: 'teal.6' },
-            { name: 'fat', color: 'pink.6' },
-          ]}
-        />
-      </Stack>
-
+     { stats && <StackCharts stats={stats} />}
 
 
     </Card>
@@ -52,4 +38,29 @@ const HomeStats = () => {
   );
 }
 
+type StackChartsProps = {
+  stats: any
+}
+
+const StackCharts = ({stats} : StackChartsProps) => {
+  return (
+    <Stack align='center' >
+      <PieChart withLabelsLine withTooltip labelsPosition="inside"
+        labelsType="percent" withLabels data={stats.weeklyPieChart} />
+      <BarChart
+        h={300}
+        data={stats.dailyBarChart}
+        dataKey="month"
+        withLegend
+        series={[
+          { name: 'calories', color: 'violet.6' },
+          { name: 'carbohydrate', color: 'blue.6' },
+          { name: 'protein', color: 'teal.6' },
+          { name: 'fat', color: 'pink.6' },
+        ]}
+      />
+    </Stack>
+
+  )
+}
 export default HomeStats;

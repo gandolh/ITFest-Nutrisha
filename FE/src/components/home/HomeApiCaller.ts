@@ -7,7 +7,7 @@ const GetStats = async  (user : User) : Promise<any> => {
     try {
         const resp = await axios.post('http://localhost:8080/users/getStats', user);
         console.log(resp.data);
-        return 0;
+        return resp.data;
     } catch (err) {
         console.log(err);
         toast("Problem with getting stats.");
