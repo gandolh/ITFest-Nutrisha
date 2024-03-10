@@ -60,7 +60,7 @@ public class AuthController {
             return ResponseEntity.badRequest().build();
         }
 
-        return ResponseEntity.ok(userService.saveUser(userDto));
+        return ResponseEntity.ok(userService.saveNewUser(userDto));
     }
 
     @PostMapping("/google")
@@ -80,6 +80,6 @@ public class AuthController {
         userDto.setHeight(null);
         userDto.setWeight(null);
 
-        return ResponseEntity.ok(userService.saveUser(userDto));
+        return ResponseEntity.ok(userService.saveNewUser(userDto));
     }
 }
