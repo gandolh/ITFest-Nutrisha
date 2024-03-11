@@ -41,7 +41,7 @@ If everything is allright for you, you can add this recipes to any meal of any d
 ![App_MealPlannerModal](https://github.com/gandolh/ITFest-Nutrisha/blob/main/Screenshoots/mealPlannerModal.png?raw=true)
 
 ## Chat bot answer
-![App_RecipesDark](https://github.com/gandolh/ITFest-Nutrisha/blob/main/Screenshoots/chatbot-answer.png?raw=true)
+![App_ChatBotAnswer](https://github.com/gandolh/ITFest-Nutrisha/blob/main/Screenshoots/chatbot-answer.png?raw=true)
 
 ## Recipes - dark theme
 ![App_RecipesDark](https://github.com/gandolh/ITFest-Nutrisha/blob/main/Screenshoots/recipes-dark.png?raw=true)
