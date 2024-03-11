@@ -24,7 +24,24 @@ If everything is allright for you, you can add this recipes to any meal of any d
 
 ## App screens
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+
+## Login 
+![App_Login](https://github.com/gandolh/ITFest-Nutrisha/blob/main/Screenshoots/login.png?raw=true)
+
+## Register
+![App_Register](https://github.com/gandolh/ITFest-Nutrisha/blob/main/Screenshoots/register.png?raw=true)
+
+## Home
+![App_Home](https://github.com/gandolh/ITFest-Nutrisha/blob/main/Screenshoots/home.png?raw=true)
+
+## Recipes - white theme
+![App_Recipes](https://github.com/gandolh/ITFest-Nutrisha/blob/main/Screenshoots/recipes-white.png?raw=true)
+
+## Meal Planner Modal
+![App_MealPlannerModal](https://github.com/gandolh/ITFest-Nutrisha/blob/main/Screenshoots/mealPlannerModal.png?raw=true)
+
+## Recipes - dark theme
+![App_RecipesDark](https://github.com/gandolh/ITFest-Nutrisha/blob/main/Screenshoots/recipes-dark.png?raw=true)
 
 ## Technical description
 ### Frontend
