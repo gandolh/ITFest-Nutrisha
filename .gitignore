@@ -19,3 +19,13 @@ OllamaAPI/.env
 
 # Python
 __pycache__/
+.venv/
+venv/
+
+# Playwright / UI audit artifacts
+playwright/screenshots/
+playwright/**/*.png
+playwright/**/*.jpeg
+playwright/**/*.webm
+playwright/**/*.zip
+.playwright-mcp/
