@@ -1,4 +1,4 @@
-import { Card, Divider, Stack, Title } from '@mantine/core';
+import { Card, Divider, Stack, Text, Title } from '@mantine/core';
 import { PieChart, BarChart } from '@mantine/charts';
 import { GetStats } from './HomeApiCaller';
 import { useAuthContext } from '../auth/AuthContext';
@@ -28,7 +28,10 @@ const HomeStats = () => {
         Home Stats
       </Title>
       <Divider my="md" />
-     { stats && <StackCharts stats={stats} />}
+      {curentUser === null && (
+        <Text c="dimmed">Log in to see your weekly stats.</Text>
+      )}
+      {curentUser !== null && stats && <StackCharts stats={stats} />}
 
 
     </Card>
@@ -55,7 +58,7 @@ const StackCharts = ({stats} : StackChartsProps) => {
       <BarChart
         h={300}
         data={stats.dailyBarChart}
-        dataKey="month"
+        dataKey="day"
         withLegend
         series={[
           { name: 'calories', color: 'violet.6' },

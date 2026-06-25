@@ -38,6 +38,9 @@ const RecipesCard = ({ OnSearchRecipes, recipes, selectedRecipe, setSelectedReci
       </div>
       <Divider my="md" />
       <Stack className="grow overflow-y-auto pr-[4px]">
+        {!searched && recipes.length === 0 && (
+          <Text c="dimmed">Search to find recipes, or generate new ones.</Text>
+        )}
         {recipes.map((recipe, index) => (
           <div key={index} className={"border border-gray-200 rounded p-2 " +
             (recipe === selectedRecipe ? activeClass : inactiveClass)}

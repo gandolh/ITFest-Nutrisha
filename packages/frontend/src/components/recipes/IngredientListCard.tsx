@@ -1,4 +1,4 @@
-import { Autocomplete, Button, Card, Divider, Group, Stack, Title } from "@mantine/core";
+import { Autocomplete, Button, Card, Divider, Group, Stack, Text, Title } from "@mantine/core";
 import { ingredients } from "./ingredients";
 import React from "react";
 import { IconMinus, IconPlus } from "@tabler/icons-react";
@@ -49,6 +49,9 @@ const IngredientListCard = ({ingredientList,setIngredientList} : IngredientListC
                 </div>
                 <Stack className="grow">
                     <div>
+                        {ingredientList.length === 0 && (
+                            <Text c="dimmed">Add ingredients to get started.</Text>
+                        )}
                         {ingredientList.map((ingredient, index) => (
                             <div key={index} className="flex justify-between mb-2">
                                 <p>{ingredient}</p>

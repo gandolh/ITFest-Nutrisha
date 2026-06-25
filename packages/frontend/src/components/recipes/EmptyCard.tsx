@@ -1,4 +1,4 @@
-import { Card, Divider, Title } from "@mantine/core";
+import { Card, Divider, Text, Title } from "@mantine/core";
 
 const EmptyCard = () => {
     return (
@@ -8,6 +8,7 @@ const EmptyCard = () => {
         >
             <Title order={1} c='dimmed'> Recipe</Title>
             <Divider my="md" />
+            <Text c="dimmed">Select a recipe to see its details.</Text>
         </Card>
 
     );

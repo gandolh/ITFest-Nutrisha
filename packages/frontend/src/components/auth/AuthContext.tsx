@@ -10,10 +10,21 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 // Create a provider for the context
+// Restore the logged-in user from localStorage so a page refresh keeps the
+// session (login writes the "authenticatedUser" key).
+const loadStoredUser = (): User | null => {
+	try {
+		const stored = window.localStorage.getItem("authenticatedUser");
+		return stored ? (JSON.parse(stored) as User) : null;
+	} catch {
+		return null;
+	}
+};
+
 const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
-	const [curentUser, setCurentUser] = useState<User | null>(null);
+	const [curentUser, setCurentUser] = useState<User | null>(loadStoredUser);
 
 	return (
 		<AuthContext.Provider value={{ curentUser, setCurentUser }}>

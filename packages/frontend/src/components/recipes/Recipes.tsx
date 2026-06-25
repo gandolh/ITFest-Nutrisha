@@ -32,9 +32,9 @@ const Recipes = () => {
       }
 
 
-    return (<h1>
-        <Container fluid pt={30} className="flex flex-col items-center justify-center" style={{ height: 'calc(100dvh - 60px - var(--app-shell-padding))' }}>
-            <SimpleGrid cols={3} className="w-full h-[80dvh]">
+    return (<div>
+        <Container fluid pt={30} className="flex flex-col items-center">
+            <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} className="w-full" spacing="lg">
                 <IngredientListCard ingredientList={ingredientList} setIngredientList={setIngredientList} />
                 <RecipesCard
                     OnSearchRecipes={HandleSearchRecipes}
@@ -47,7 +47,7 @@ const Recipes = () => {
             </SimpleGrid>
             <ChatAssistant />
         </Container>
-    </h1>);
+    </div>);
 }
 
 export default Recipes;

@@ -11,7 +11,7 @@ through the Node/Fastify backend, which owns the SQLite database.
 | `app.py`            | Flask app and HTTP routes                                   |
 | `config.py`         | Environment / `.env` configuration                          |
 | `ollama_client.py`  | Ollama Cloud client (Bearer API key)                        |
-| `recipe_parser.py`  | Parse the LLM template response into a structured recipe    |
+| `schema.py`         | JSON Schema constraining the LLM's recipe output            |
 | `backend_client.py` | Read/write recipes via the Node backend REST API            |
 
 ## Setup

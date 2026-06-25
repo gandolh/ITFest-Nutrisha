@@ -43,9 +43,23 @@ Vite :5174), live `gemma4:cloud`.
 | F6 | Low | Test gap | Chat panel open/send not confirmed through the UI (launcher click didn't open panel via MCP selector). Endpoint verified directly. | TP-04 follow-up |
 | F7 | Low | a11y | Icon-only buttons (+ / − / Search / chat) lack accessible names in the snapshot; verify labels/aria. | shared components |
 
-## Next steps
+## Resolution (2026-06-25, same day)
 
-- Fix F1/F2 by making generation robust: prefer asking the model for **JSON**
-  and parsing that, instead of offset math on free text. Highest leverage.
-- Fix F3 responsive stacking before any mobile use.
-- F4/F5 are UX/data-wiring; F6/F7 are follow-ups.
+- **F1+F2 — FIXED.** Generation rewritten to a single JSON call: the model
+  returns `{recipes: [...]}` with explicit field names; `generate_json()` strips
+  code fences; `recipe_parser.py` deleted. Verified live — clean titles,
+  descriptions, integer macros, structured ingredients/steps.
+- **F3 — FIXED.** `SimpleGrid cols={{ base: 1, sm: 2, md: 3 }}` + removed fixed
+  heights in both `Recipes.tsx` and `Home.tsx`. Verified: stacks cleanly at
+  390px. Also fixed a stray `<h1>` wrapping the whole Recipes page.
+- **F4 — FIXED.** Empty-state hints added to all three Recipes panels. (Loading
+  state already existed; original note corrected above.)
+- **F5 — FIXED.** `AuthContext` rehydrates `curentUser` from localStorage;
+  `TodayPlan` reads `curentUser.mealPlan[today]`; BarChart `dataKey` `month`→`day`;
+  logged-out cards show "Log in to see…". Also corrected the frontend
+  `MealPlanDay` type (lunch/dinner/snacks were mistyped).
+
+## Remaining follow-ups
+
+- **F6** — re-confirm chat panel open/send through the UI (endpoint verified).
+- **F7** — dedicated a11y pass: accessible names on icon-only buttons.
