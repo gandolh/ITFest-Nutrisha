@@ -1,7 +1,5 @@
 import { Card, Divider, Stack, Title } from '@mantine/core';
 import { PieChart, BarChart } from '@mantine/charts';
-import { dataPieChart } from './dataPieChart';
-import { dataBarChart } from './dataBarChart';
 import { GetStats } from './HomeApiCaller';
 import { useAuthContext } from '../auth/AuthContext';
 import { useEffect, useState } from 'react';

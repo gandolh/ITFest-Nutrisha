@@ -1,4 +1,4 @@
-import { Badge, Button, Card, Divider, List, Checkbox, SimpleGrid, Title, Modal, Table } from "@mantine/core";
+import { Badge, Button, Card, Divider, List, SimpleGrid, Title, Modal } from "@mantine/core";
 import { IconCalendar } from "@tabler/icons-react";
 import { useDisclosure } from '@mantine/hooks';
 import { useAuthContext } from "../auth/AuthContext";

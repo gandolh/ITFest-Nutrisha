@@ -1,4 +1,4 @@
-import { Card, Text, Title} from '@mantine/core';
+import { Card } from '@mantine/core';
 import { useAuthContext } from '../auth/AuthContext';
 
 const WelcomeCard = () => {

@@ -2,11 +2,9 @@ import {
   Paper,
   TextInput,
   PasswordInput,
-  Checkbox,
   Button,
   Title,
   Text,
-  Anchor,
   Group,
   NumberInput,
 } from '@mantine/core';
