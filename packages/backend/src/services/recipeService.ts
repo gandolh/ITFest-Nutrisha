@@ -2,18 +2,18 @@ import type { Recipe } from '@nutrisha/shared';
 import { recipeRepository } from '../repositories.js';
 
 export const recipeService = {
-  getAllRecipes(): Promise<Recipe[]> {
+  getAllRecipes(): Recipe[] {
     return recipeRepository.findAll();
   },
 
-  getRecipeById(id: string): Promise<Recipe | null> {
+  getRecipeById(id: string): Recipe | null {
     return recipeRepository.findById(id);
   },
 
   // Ported from RecipeService.getRecipesByIngredients: keep only recipes whose
   // ingredient list contains a substring match for every requested ingredient.
-  async getRecipesByIngredients(ingredients: string[]): Promise<Recipe[]> {
-    const recipes = await recipeRepository.findAll();
+  getRecipesByIngredients(ingredients: string[]): Recipe[] {
+    const recipes = recipeRepository.findAll();
     return recipes.filter((recipe) =>
       ingredients.every((ingredient) => {
         if (recipe.ingredients == null) return false;
@@ -22,17 +22,17 @@ export const recipeService = {
     );
   },
 
-  saveRecipe(recipe: Recipe): Promise<Recipe> {
+  saveRecipe(recipe: Recipe): Recipe {
     return recipeRepository.save(recipe);
   },
 
-  deleteRecipe(id: string): Promise<void> {
-    return recipeRepository.deleteById(id);
+  deleteRecipe(id: string): void {
+    recipeRepository.deleteById(id);
   },
 
   // Ported from RecipeMapper.updateDto: non-null fields from newRecipe override.
-  async updateRecipe(id: string, newRecipe: Partial<Recipe>): Promise<Recipe> {
-    const oldRecipe = (await recipeRepository.findById(id))!;
+  updateRecipe(id: string, newRecipe: Partial<Recipe>): Recipe {
+    const oldRecipe = recipeRepository.findById(id)!;
     const merged: Recipe = {
       ...oldRecipe,
       title: newRecipe.title ?? oldRecipe.title,

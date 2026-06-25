@@ -9,8 +9,7 @@ import type {
 import { DAY_NAMES } from '@nutrisha/shared';
 import { userRepository } from '../repositories.js';
 
-// Ported from MealPlanMapper/UserMapper toEntity: the password is hashed when
-// persisting. We hash on save, exactly like the original BCrypt mapper did.
+// Ported from UserMapper.toEntity: the password is hashed when persisting.
 function hashForStorage(user: User): User {
   return { ...user, password: bcrypt.hashSync(user.password ?? '', bcrypt.genSaltSync()) };
 }
@@ -29,15 +28,15 @@ function sumMacro(day: DayPlan, macro: 'calories' | 'protein' | 'carbohydrate' |
 }
 
 export const userService = {
-  getAllUsers(): Promise<User[]> {
+  getAllUsers(): User[] {
     return userRepository.findAll();
   },
 
-  getUserById(id: string): Promise<User | null> {
+  getUserById(id: string): User | null {
     return userRepository.findById(id);
   },
 
-  getUserByEmail(email: string): Promise<User | null> {
+  getUserByEmail(email: string): User | null {
     return userRepository.findByEmail(email);
   },
 
@@ -70,24 +69,24 @@ export const userService = {
   },
 
   // Ported from UserService.saveNewUser: seeds an empty week-long meal plan.
-  saveNewUser(userDto: User): Promise<User> {
+  saveNewUser(userDto: User): User {
     const mealPlan = Object.fromEntries(
       DAY_NAMES.map((day) => [day, emptyDayPlan()]),
     ) as MealPlan;
     return userRepository.save(hashForStorage({ ...userDto, mealPlan }));
   },
 
-  saveUser(userDto: User): Promise<User> {
+  saveUser(userDto: User): User {
     return userRepository.save(hashForStorage(userDto));
   },
 
-  deleteUser(id: string): Promise<void> {
-    return userRepository.deleteById(id);
+  deleteUser(id: string): void {
+    userRepository.deleteById(id);
   },
 
   // Ported from UserMapper.updateDto: non-null fields from newUser override.
-  async updateUser(id: string, newUser: Partial<User>): Promise<User> {
-    const oldUser = (await userRepository.findById(id))!;
+  updateUser(id: string, newUser: Partial<User>): User {
+    const oldUser = userRepository.findById(id)!;
     const merged: User = {
       ...oldUser,
       email: newUser.email ?? oldUser.email,

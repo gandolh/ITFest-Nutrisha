@@ -1,28 +1,59 @@
-import { MongoClient, type Db } from 'mongodb';
+import { mkdirSync } from 'node:fs';
+import { dirname } from 'node:path';
+import Database from 'better-sqlite3';
 import { config } from './config.js';
 
-let client: MongoClient | null = null;
-let db: Db | null = null;
+let db: Database.Database | null = null;
 
-export async function connectDb(): Promise<Db> {
+// The domain objects are document-shaped (nested mealPlan / ingredients /
+// steps). We keep scalar columns for the fields the app queries on and store
+// the nested structures as JSON text columns.
+function migrate(database: Database.Database): void {
+  database.pragma('journal_mode = WAL');
+  database.exec(`
+    CREATE TABLE IF NOT EXISTS users (
+      id        TEXT PRIMARY KEY,
+      email     TEXT UNIQUE,
+      password  TEXT,
+      firstName TEXT,
+      lastName  TEXT,
+      height    INTEGER,
+      weight    INTEGER,
+      mealPlan  TEXT
+    );
+
+    CREATE TABLE IF NOT EXISTS recipes (
+      id           TEXT PRIMARY KEY,
+      title        TEXT,
+      description  TEXT,
+      calories     INTEGER,
+      protein      INTEGER,
+      fat          INTEGER,
+      carbohydrate INTEGER,
+      ingredients  TEXT,
+      steps        TEXT
+    );
+  `);
+}
+
+export function connectDb(): Database.Database {
   if (db) return db;
-  client = new MongoClient(config.mongoUri);
-  await client.connect();
-  db = client.db(config.dbName);
+  mkdirSync(dirname(config.databasePath), { recursive: true });
+  db = new Database(config.databasePath);
+  migrate(db);
   return db;
 }
 
-export function getDb(): Db {
+export function getDb(): Database.Database {
   if (!db) {
     throw new Error('Database not connected. Call connectDb() first.');
   }
   return db;
 }
 
-export async function closeDb(): Promise<void> {
-  if (client) {
-    await client.close();
-    client = null;
+export function closeDb(): void {
+  if (db) {
+    db.close();
     db = null;
   }
 }

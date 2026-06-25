@@ -6,9 +6,9 @@ import { Validator } from '../validator.js';
 
 // Ported from controller/AuthController.java (@RequestMapping("/auth"))
 export async function authRoutes(app: FastifyInstance): Promise<void> {
-  app.post<{ Body: LoginRequest }>('/auth/login', async (request, reply) => {
+  app.post<{ Body: LoginRequest }>('/auth/login', (request, reply) => {
     const { email, password } = request.body;
-    const user = await userService.getUserByEmail(email);
+    const user = userService.getUserByEmail(email);
 
     if (!user) {
       return reply.code(404).send();
@@ -19,9 +19,9 @@ export async function authRoutes(app: FastifyInstance): Promise<void> {
     return reply.send(user);
   });
 
-  app.post<{ Body: User }>('/auth/register', async (request, reply) => {
+  app.post<{ Body: User }>('/auth/register', (request, reply) => {
     const userDto = request.body;
-    const existing = await userService.getUserByEmail(userDto.email);
+    const existing = userService.getUserByEmail(userDto.email);
 
     if (existing) {
       return reply.code(400).send();
@@ -40,12 +40,12 @@ export async function authRoutes(app: FastifyInstance): Promise<void> {
       return reply.code(400).send();
     }
 
-    return reply.send(await userService.saveNewUser(userDto));
+    return reply.send(userService.saveNewUser(userDto));
   });
 
-  app.post<{ Body: GoogleLoginRequest }>('/auth/google', async (request, reply) => {
+  app.post<{ Body: GoogleLoginRequest }>('/auth/google', (request, reply) => {
     const { email, firstName, lastName } = request.body;
-    const existing = await userService.getUserByEmail(email);
+    const existing = userService.getUserByEmail(email);
 
     if (existing) {
       return reply.send(existing);
@@ -60,6 +60,6 @@ export async function authRoutes(app: FastifyInstance): Promise<void> {
       weight: null,
     };
 
-    return reply.send(await userService.saveNewUser(userDto));
+    return reply.send(userService.saveNewUser(userDto));
   });
 }

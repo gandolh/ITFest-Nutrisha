@@ -1,19 +1,21 @@
 # @nutrisha/backend
 
-Fastify + TypeScript + MongoDB backend. This is a port of the original Spring
-Boot service (`/auth`, `/users`, `/recipes` endpoints), preserving the same
-routes, status codes, and behavior so the existing frontend works unchanged.
+Fastify + TypeScript backend backed by a local **SQLite** database. This is a
+port of the original Spring Boot service (`/auth`, `/users`, `/recipes`
+endpoints), preserving the same routes, status codes, and behavior so the
+existing frontend works unchanged.
 
 ## Requirements
 
 - Node.js >= 20.11
-- A running MongoDB instance (defaults to `mongodb://127.0.0.1:27017`,
-  database `nutrition_assistant`)
+
+No external database server is needed — data is stored in a local SQLite file
+(created automatically on first run, default `./data/nutrisha.db`).
 
 ## Configuration
 
-Copy `.env.example` to `.env` and adjust as needed. Defaults mirror the old
-Spring Boot setup: server on port `8080`, local MongoDB.
+Copy `.env.example` to `.env` and adjust as needed. Defaults: server on port
+`8080`, SQLite file at `./data/nutrisha.db`.
 
 ## Scripts
 

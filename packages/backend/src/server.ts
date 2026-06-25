@@ -3,12 +3,12 @@ import { config } from './config.js';
 import { connectDb, closeDb } from './db.js';
 
 async function main(): Promise<void> {
-  await connectDb();
+  connectDb();
   const app = await buildApp();
 
   const shutdown = async () => {
     await app.close();
-    await closeDb();
+    closeDb();
     process.exit(0);
   };
   process.on('SIGINT', shutdown);
