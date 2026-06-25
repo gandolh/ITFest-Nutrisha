@@ -61,5 +61,10 @@ Vite :5174), live `gemma4:cloud`.
 
 ## Remaining follow-ups
 
-- **F6** — re-confirm chat panel open/send through the UI (endpoint verified).
-- **F7** — dedicated a11y pass: accessible names on icon-only buttons.
+- **F6 — FIXED/verified.** Chat panel now opens, sends, and renders a live
+  `gemma4:cloud` reply through the UI (tested: "Eggs and avocado."). Root cause
+  of the earlier test miss: the launcher was a `<div onClick>` with no role —
+  now a labeled `<button>`.
+- **F7 — FIXED.** Icon-only controls have accessible names: "Open chat
+  assistant", "Close chat", "Send message", "Add ingredient", "Remove <name>".
+  Chat launcher/close converted from `<div>`/`<p>` to real `<button>` elements.

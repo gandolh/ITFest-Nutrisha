@@ -29,11 +29,13 @@ const ChatAssistant = () => {
 
     return (
         <div className="absolute bottom-[25px] right-[25px]">
-            {!toggleChat && (<div
+            {!toggleChat && (<button
+                type="button"
+                aria-label="Open chat assistant"
                 className="w-16 h-16 bg-indigo-500 rounded-full flex items-center justify-center hover:cursor-pointer"
                 onClick={handleToggleChat}>
                 <IconMessageCircle2 size={32} color="white" />
-            </div>)
+            </button>)
             }
             {toggleChat && <ChatBox handleToggleChat={handleToggleChat} messages={messages} HandleSendMessage={HandleSendMessage} />}
 
@@ -64,7 +66,7 @@ const ChatBox = ({ handleToggleChat, messages, HandleSendMessage }: ChatBoxProps
             <div className="grow flex justify-center">
                 <Title order={4} c={colorScheme === 'light' ? "black" : "white"}>Ask Bob about selected recipe</Title>
             </div>
-            <p className="font-bold pr-4 hover:cursor-pointer" onClick={handleToggleChat} color={colorScheme === 'light' ? "black" : "white"}> <IconMinus /> </p>
+            <button type="button" aria-label="Close chat" className="font-bold pr-4 hover:cursor-pointer bg-transparent border-0" onClick={handleToggleChat}> <IconMinus /> </button>
         </div>
 
         <div className="grow pt-2 gap-2 flex flex-col overflow-auto" >
@@ -91,7 +93,7 @@ const ChatBox = ({ handleToggleChat, messages, HandleSendMessage }: ChatBoxProps
         </div>
         <div className={`flex w-full border-t-2 pt-4 ${colorScheme === 'light' ? "border-white" : " border-gray-400"}`}>
             <TextInput value={chatText} onChange={handleChangeChatText} className="grow mb-4 ml-4" />
-            <Button onClick={() => preHandleMesageChange(chatText)} variant="dark" className="mb-4 mr-4 ml-2 bg-indigo-500"><IconSend /></Button>
+            <Button aria-label="Send message" onClick={() => preHandleMesageChange(chatText)} variant="dark" className="mb-4 mr-4 ml-2 bg-indigo-500"><IconSend /></Button>
         </div>
     </div>);
 }

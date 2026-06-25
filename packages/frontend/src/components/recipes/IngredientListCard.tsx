@@ -55,7 +55,7 @@ const IngredientListCard = ({ingredientList,setIngredientList} : IngredientListC
                         {ingredientList.map((ingredient, index) => (
                             <div key={index} className="flex justify-between mb-2">
                                 <p>{ingredient}</p>
-                                <Button variant="light" color="red" onClick={HandleRemoveIngredient}><IconMinus size={18}></IconMinus></Button>
+                                <Button aria-label={`Remove ${ingredient}`} variant="light" color="red" onClick={HandleRemoveIngredient}><IconMinus size={18}></IconMinus></Button>
                                 </div>
                         ))}
                     </div>
@@ -73,7 +73,7 @@ const IngredientListCard = ({ingredientList,setIngredientList} : IngredientListC
                         data={ingredients}
                         limit={5}
                         />
-                    <Button maw={60} variant="light" color="indigo" onClick={HandleAdd}><IconPlus size={24}></IconPlus></Button>
+                    <Button aria-label="Add ingredient" maw={60} variant="light" color="indigo" onClick={HandleAdd}><IconPlus size={24}></IconPlus></Button>
                 </Group>
 
 
