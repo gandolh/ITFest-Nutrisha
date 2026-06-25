@@ -1,0 +1,26 @@
+{
+  "name": "@nutrisha/backend",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js",
+    "lint": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@fastify/cors": "11.2.0",
+    "@nutrisha/shared": "*",
+    "bcryptjs": "3.0.3",
+    "fastify": "5.8.5",
+    "mongodb": "7.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "26.0.1",
+    "pino-pretty": "13.1.3",
+    "tsx": "4.22.4",
+    "typescript": "6.0.3"
+  }
+}

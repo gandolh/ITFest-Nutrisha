@@ -47,6 +47,17 @@ If everything is allright for you, you can add this recipes to any meal of any d
 ![App_RecipesDark](https://github.com/gandolh/ITFest-Nutrisha/blob/main/Screenshoots/recipes-dark.png?raw=true)
 
 ## Technical description
+
+The project is organized as an **npm workspaces** monorepo:
+
+```
+packages/
+├── shared/     @nutrisha/shared   – TypeScript domain types shared by FE & BE
+├── backend/    @nutrisha/backend  – Fastify + TypeScript + MongoDB CRUD API
+└── frontend/   @nutrisha/frontend – React + Vite + Mantine UI
+OllamaAPI/                          – Python/Flask LLM service (separate)
+```
+
 ### Frontend
 We made the interface in React, using:
 - Mantine component library
@@ -54,7 +65,26 @@ We made the interface in React, using:
 - Axios
 
 ### Backend
-We made the backend using two APIs. One for LLM interaction and the other for base crud operations.
+The backend is split into two APIs. One for LLM interaction and the other for
+base CRUD operations.
 
-That one for LLM interaction was made using Python and Flask. The other one using Java with Springboot.
+The LLM interaction API is built with Python and Flask (see `OllamaAPI/`). The
+CRUD API was originally written in Java with Spring Boot and has since been
+ported to **Fastify + TypeScript** (see `packages/backend/`), backed by MongoDB.
+It exposes the same `/auth`, `/users`, and `/recipes` endpoints on port `8080`.
+
+### Running it
+
+```bash
+# install all workspaces
+npm install
+
+# start the Fastify backend (needs MongoDB on localhost:27017)
+npm run dev:backend
+
+# start the React frontend
+npm run dev:frontend
+```
+
+The Python LLM service is run separately from the `OllamaAPI/` directory.
 

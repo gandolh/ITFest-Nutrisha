@@ -1,0 +1,48 @@
+{
+  "name": "@nutrisha/frontend",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@mantine/charts": "9.4.0",
+    "@mantine/core": "9.4.0",
+    "@mantine/dates": "9.4.0",
+    "@mantine/form": "9.4.0",
+    "@mantine/hooks": "9.4.0",
+    "@mantine/modals": "9.4.0",
+    "@mantine/nprogress": "9.4.0",
+    "@mantinex/mantine-logo": "2.0.0",
+    "@nutrisha/shared": "*",
+    "@react-oauth/google": "0.13.5",
+    "@tabler/icons-react": "3.44.0",
+    "axios": "1.18.1",
+    "dayjs": "1.11.21",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "react-router-dom": "7.18.0",
+    "react-toastify": "11.1.0",
+    "recharts": "3.9.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "6.0.3",
+    "autoprefixer": "10.5.2",
+    "eslint": "9.39.4",
+    "eslint-plugin-react": "7.37.5",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "eslint-plugin-react-refresh": "0.5.3",
+    "postcss": "8.5.15",
+    "postcss-preset-mantine": "1.18.0",
+    "postcss-simple-vars": "7.0.1",
+    "tailwindcss": "4.3.1",
+    "typescript": "6.0.3",
+    "vite": "8.1.0"
+  }
+}
